@@ -112,7 +112,7 @@ namespace QuanLyHieuThuoc
                 }
             }
 
-            NhanVien.DanhSachThuoc form = new NhanVien.DanhSachThuoc();
+            NhanVien.DanhSachThuoc form = new NhanVien.DanhSachThuoc(currentUser);
             form.MdiParent = this;
             form.FormClosed += (s, args) => openedForms.Remove(form);
             openedForms.Add(form);
@@ -131,7 +131,7 @@ namespace QuanLyHieuThuoc
                 }
             }
 
-            NhanVien.DanhSachLoaiThuoc form = new NhanVien.DanhSachLoaiThuoc();
+            NhanVien.DanhSachLoaiThuoc form = new NhanVien.DanhSachLoaiThuoc(currentUser);
             form.MdiParent = this;
             form.FormClosed += (s, args) => openedForms.Remove(form);
             openedForms.Add(form);
@@ -150,7 +150,7 @@ namespace QuanLyHieuThuoc
                 }
             }
 
-            NhanVien.DanhSachLoHang form = new NhanVien.DanhSachLoHang();
+            NhanVien.DanhSachLoHang form = new NhanVien.DanhSachLoHang(currentUser);
             form.MdiParent = this;
             form.FormClosed += (s, args) => openedForms.Remove(form);
             openedForms.Add(form);
@@ -160,7 +160,7 @@ namespace QuanLyHieuThuoc
         private void bánHàngTạiQuầyToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            NhanVien.BanHang form = new NhanVien.BanHang();
+            NhanVien.BanHang form = new NhanVien.BanHang(currentUser);
             form.MdiParent = this;
             form.Show();
         }

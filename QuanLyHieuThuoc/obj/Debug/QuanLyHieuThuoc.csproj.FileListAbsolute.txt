@@ -20,3 +20,6 @@ C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieu
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.KhachHang.LichSuMuaHang.resources
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.KhachHang.DoiMatKhauKachHang.resources
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.NhanVien.DanhSachThuoc.resources
+C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.NhanVien.DanhSachLoaiThuoc.resources
+C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.NhanVien.DanhSachLoHang.resources
+C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.NhanVien.BanHang.resources

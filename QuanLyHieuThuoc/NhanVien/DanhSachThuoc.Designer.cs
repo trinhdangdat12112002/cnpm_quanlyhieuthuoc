@@ -52,6 +52,9 @@
             this.btnBoQua = new System.Windows.Forms.Button();
             this.cbbLoaiThuoc = new System.Windows.Forms.ComboBox();
             this.btnLoc = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtMaThuoc = new System.Windows.Forms.TextBox();
+            this.txtTest = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.viewThuoc)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,6 +73,7 @@
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(499, 22);
             this.txtSearch.TabIndex = 21;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // viewThuoc
             // 
@@ -90,7 +94,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(41, 69);
+            this.label2.Location = new System.Drawing.Point(35, 99);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 16);
             this.label2.TabIndex = 23;
@@ -99,7 +103,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(44, 118);
+            this.label3.Location = new System.Drawing.Point(38, 148);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 16);
             this.label3.TabIndex = 24;
@@ -108,7 +112,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(49, 169);
+            this.label4.Location = new System.Drawing.Point(43, 199);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 16);
             this.label4.TabIndex = 25;
@@ -152,7 +156,7 @@
             // 
             // txtTenThuoc
             // 
-            this.txtTenThuoc.Location = new System.Drawing.Point(137, 69);
+            this.txtTenThuoc.Location = new System.Drawing.Point(131, 99);
             this.txtTenThuoc.Name = "txtTenThuoc";
             this.txtTenThuoc.Size = new System.Drawing.Size(238, 22);
             this.txtTenThuoc.TabIndex = 30;
@@ -188,7 +192,7 @@
             // 
             // txtThongTin
             // 
-            this.txtThongTin.Location = new System.Drawing.Point(137, 169);
+            this.txtThongTin.Location = new System.Drawing.Point(131, 199);
             this.txtThongTin.Name = "txtThongTin";
             this.txtThongTin.Size = new System.Drawing.Size(493, 80);
             this.txtThongTin.TabIndex = 36;
@@ -202,36 +206,39 @@
             // 
             // btnThem
             // 
-            this.btnThem.Location = new System.Drawing.Point(131, 327);
+            this.btnThem.Location = new System.Drawing.Point(191, 313);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(75, 23);
+            this.btnThem.Size = new System.Drawing.Size(118, 35);
             this.btnThem.TabIndex = 37;
             this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = true;
+            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // btnSua
             // 
-            this.btnSua.Location = new System.Drawing.Point(265, 326);
+            this.btnSua.Location = new System.Drawing.Point(325, 312);
             this.btnSua.Name = "btnSua";
-            this.btnSua.Size = new System.Drawing.Size(75, 23);
+            this.btnSua.Size = new System.Drawing.Size(118, 35);
             this.btnSua.TabIndex = 38;
             this.btnSua.Text = "Chỉnh sửa";
             this.btnSua.UseVisualStyleBackColor = true;
+            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // btnXoa
             // 
-            this.btnXoa.Location = new System.Drawing.Point(412, 326);
+            this.btnXoa.Location = new System.Drawing.Point(472, 312);
             this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(75, 23);
+            this.btnXoa.Size = new System.Drawing.Size(118, 35);
             this.btnXoa.TabIndex = 39;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.UseVisualStyleBackColor = true;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnBoQua
             // 
-            this.btnBoQua.Location = new System.Drawing.Point(564, 326);
+            this.btnBoQua.Location = new System.Drawing.Point(624, 312);
             this.btnBoQua.Name = "btnBoQua";
-            this.btnBoQua.Size = new System.Drawing.Size(75, 23);
+            this.btnBoQua.Size = new System.Drawing.Size(118, 35);
             this.btnBoQua.TabIndex = 40;
             this.btnBoQua.Text = "Bỏ qua";
             this.btnBoQua.UseVisualStyleBackColor = true;
@@ -240,25 +247,54 @@
             // cbbLoaiThuoc
             // 
             this.cbbLoaiThuoc.FormattingEnabled = true;
-            this.cbbLoaiThuoc.Location = new System.Drawing.Point(137, 118);
+            this.cbbLoaiThuoc.Location = new System.Drawing.Point(131, 148);
             this.cbbLoaiThuoc.Name = "cbbLoaiThuoc";
             this.cbbLoaiThuoc.Size = new System.Drawing.Size(238, 24);
             this.cbbLoaiThuoc.TabIndex = 41;
             // 
             // btnLoc
             // 
-            this.btnLoc.Location = new System.Drawing.Point(728, 326);
+            this.btnLoc.Location = new System.Drawing.Point(788, 312);
             this.btnLoc.Name = "btnLoc";
-            this.btnLoc.Size = new System.Drawing.Size(75, 23);
+            this.btnLoc.Size = new System.Drawing.Size(118, 35);
             this.btnLoc.TabIndex = 42;
             this.btnLoc.Text = "Lọc";
             this.btnLoc.UseVisualStyleBackColor = true;
+            this.btnLoc.Click += new System.EventHandler(this.btnLoc_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(38, 60);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(67, 16);
+            this.label5.TabIndex = 43;
+            this.label5.Text = "Mã Thuốc";
+            // 
+            // txtMaThuoc
+            // 
+            this.txtMaThuoc.Location = new System.Drawing.Point(131, 60);
+            this.txtMaThuoc.Name = "txtMaThuoc";
+            this.txtMaThuoc.Size = new System.Drawing.Size(238, 22);
+            this.txtMaThuoc.TabIndex = 44;
+            // 
+            // txtTest
+            // 
+            this.txtTest.AutoSize = true;
+            this.txtTest.Location = new System.Drawing.Point(411, 13);
+            this.txtTest.Name = "txtTest";
+            this.txtTest.Size = new System.Drawing.Size(51, 16);
+            this.txtTest.TabIndex = 45;
+            this.txtTest.Text = "label10";
             // 
             // DanhSachThuoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1163, 671);
+            this.Controls.Add(this.txtTest);
+            this.Controls.Add(this.txtMaThuoc);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.btnLoc);
             this.Controls.Add(this.cbbLoaiThuoc);
             this.Controls.Add(this.btnBoQua);
@@ -315,5 +351,8 @@
         private System.Windows.Forms.Button btnBoQua;
         private System.Windows.Forms.ComboBox cbbLoaiThuoc;
         private System.Windows.Forms.Button btnLoc;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtMaThuoc;
+        private System.Windows.Forms.Label txtTest;
     }
 }

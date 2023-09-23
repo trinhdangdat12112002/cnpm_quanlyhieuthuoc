@@ -204,6 +204,15 @@
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NhanVien\BanHang.resx">
+      <DependentUpon>BanHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NhanVien\DanhSachLoaiThuoc.resx">
+      <DependentUpon>DanhSachLoaiThuoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NhanVien\DanhSachLoHang.resx">
+      <DependentUpon>DanhSachLoHang.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NhanVien\DanhSachThuoc.resx">
       <DependentUpon>DanhSachThuoc.cs</DependentUpon>
     </EmbeddedResource>
