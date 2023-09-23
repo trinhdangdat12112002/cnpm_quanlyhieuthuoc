@@ -298,7 +298,7 @@ namespace QuanLyHieuThuoc.KhachHang
                     connection.Open();
                     cmd2.ExecuteNonQuery();
                     connection.Close();
-
+                    
                 }
 
                 MessageBox.Show("Thêm phiếu nhận thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -306,7 +306,7 @@ namespace QuanLyHieuThuoc.KhachHang
             }
             else
             {
-                MessageBox.Show("Giỏ hàng đang trống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Hóa đơn đang trống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

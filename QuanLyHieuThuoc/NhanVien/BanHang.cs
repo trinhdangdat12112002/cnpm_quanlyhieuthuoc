@@ -183,6 +183,7 @@ namespace QuanLyHieuThuoc.NhanVien
                 cbLo.DisplayMember = "Value";
                 cbLo.ValueMember = "Key";
             }
+
         }
 
         private void cbLo_SelectedIndexChanged(object sender, EventArgs e)
