@@ -56,6 +56,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbLoHang = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.viewChiTiet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewThuoc)).BeginInit();
             this.SuspendLayout();
@@ -64,7 +65,7 @@
             // 
             this.btnBoQua.Location = new System.Drawing.Point(740, 396);
             this.btnBoQua.Name = "btnBoQua";
-            this.btnBoQua.Size = new System.Drawing.Size(100, 23);
+            this.btnBoQua.Size = new System.Drawing.Size(100, 53);
             this.btnBoQua.TabIndex = 48;
             this.btnBoQua.Text = "Hủy thao tác";
             this.btnBoQua.UseVisualStyleBackColor = true;
@@ -107,7 +108,7 @@
             // 
             // txtNgayNhap
             // 
-            this.txtNgayNhap.Location = new System.Drawing.Point(422, 560);
+            this.txtNgayNhap.Location = new System.Drawing.Point(404, 560);
             this.txtNgayNhap.Name = "txtNgayNhap";
             this.txtNgayNhap.Size = new System.Drawing.Size(100, 22);
             this.txtNgayNhap.TabIndex = 43;
@@ -314,16 +315,26 @@
             // cbLoHang
             // 
             this.cbLoHang.FormattingEnabled = true;
-            this.cbLoHang.Location = new System.Drawing.Point(645, 556);
+            this.cbLoHang.Location = new System.Drawing.Point(628, 560);
             this.cbLoHang.Name = "cbLoHang";
             this.cbLoHang.Size = new System.Drawing.Size(121, 24);
             this.cbLoHang.TabIndex = 49;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(544, 565);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(80, 16);
+            this.label10.TabIndex = 50;
+            this.label10.Text = "Mã Lô Hàng";
             // 
             // NhapHang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1547, 842);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.cbLoHang);
             this.Controls.Add(this.btnBoQua);
             this.Controls.Add(this.lbTongTien);
@@ -387,5 +398,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbLoHang;
+        private System.Windows.Forms.Label label10;
     }
 }

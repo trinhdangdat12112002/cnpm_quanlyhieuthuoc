@@ -8,11 +8,8 @@ C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieu
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.csproj.CoreCompileInputs.cache
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.exe
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.pdb
-C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.Main.resources
-C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.HoaDonNhap.resources
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.FormKhachHang.resources
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.FormNhanVien.resources
-C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.FormQuanLi.resources
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.KhachHang.ThongTinKhachHang.resources
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.KhachHang.TraCuuThuoc.resources
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.KhachHang.UuThich.resources

@@ -64,18 +64,6 @@
     <Compile Include="FormNhanVien.Designer.cs">
       <DependentUpon>FormNhanVien.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormQuanLi.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormQuanLi.Designer.cs">
-      <DependentUpon>FormQuanLi.cs</DependentUpon>
-    </Compile>
-    <Compile Include="HoaDonNhap.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="HoaDonNhap.Designer.cs">
-      <DependentUpon>HoaDonNhap.cs</DependentUpon>
-    </Compile>
     <Compile Include="KhachHang\DatHang.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,12 +99,6 @@
     </Compile>
     <Compile Include="KhachHang\UuThich.Designer.cs">
       <DependentUpon>UuThich.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Main.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Main.Designer.cs">
-      <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="NhanVien\BanHang.cs">
       <SubType>Form</SubType>
@@ -201,12 +183,6 @@
     <EmbeddedResource Include="FormNhanVien.resx">
       <DependentUpon>FormNhanVien.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormQuanLi.resx">
-      <DependentUpon>FormQuanLi.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="HoaDonNhap.resx">
-      <DependentUpon>HoaDonNhap.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="KhachHang\DatHang.resx">
       <DependentUpon>DatHang.cs</DependentUpon>
     </EmbeddedResource>
@@ -224,9 +200,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="KhachHang\UuThich.resx">
       <DependentUpon>UuThich.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Main.resx">
-      <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NhanVien\BanHang.resx">
       <DependentUpon>BanHang.cs</DependentUpon>
