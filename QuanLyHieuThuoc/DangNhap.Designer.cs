@@ -37,21 +37,23 @@
             this.lbError = new System.Windows.Forms.Label();
             this.rbNhanVien = new System.Windows.Forms.RadioButton();
             this.rbKhachHang = new System.Windows.Forms.RadioButton();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 41);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(88, 47);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(469, 16);
+            this.label1.Size = new System.Drawing.Size(439, 20);
             this.label1.TabIndex = 0;
-            this.label1.Text = "HỆ THỐNG QUẢN LÝ HOẠT ĐỘNG CỦA HIỆU THUỐC THÁI BÌNH PHARMA";
+            this.label1.Text = "HỆ THỐNG QUẢN LÝ HOẠT ĐỘNG CỦA HIỆU THUỐC ";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(87, 118);
+            this.label2.Location = new System.Drawing.Point(144, 152);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(98, 16);
             this.label2.TabIndex = 1;
@@ -60,7 +62,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(124, 169);
+            this.label3.Location = new System.Drawing.Point(181, 203);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 16);
             this.label3.TabIndex = 2;
@@ -68,23 +70,23 @@
             // 
             // txtTenDangNhap
             // 
-            this.txtTenDangNhap.Location = new System.Drawing.Point(209, 111);
+            this.txtTenDangNhap.Location = new System.Drawing.Point(266, 145);
             this.txtTenDangNhap.Name = "txtTenDangNhap";
             this.txtTenDangNhap.Size = new System.Drawing.Size(156, 22);
             this.txtTenDangNhap.TabIndex = 3;
-            this.txtTenDangNhap.Text = "test";
+            this.txtTenDangNhap.Text = "error";
             // 
             // txtMatKhau
             // 
-            this.txtMatKhau.Location = new System.Drawing.Point(209, 163);
+            this.txtMatKhau.Location = new System.Drawing.Point(266, 197);
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.Size = new System.Drawing.Size(156, 22);
             this.txtMatKhau.TabIndex = 4;
-            this.txtMatKhau.Text = "test";
+            this.txtMatKhau.Text = "error";
             // 
             // btnDangNhap
             // 
-            this.btnDangNhap.Location = new System.Drawing.Point(153, 270);
+            this.btnDangNhap.Location = new System.Drawing.Point(210, 304);
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(169, 30);
             this.btnDangNhap.TabIndex = 5;
@@ -97,7 +99,7 @@
             this.lbError.AutoSize = true;
             this.lbError.BackColor = System.Drawing.SystemColors.Control;
             this.lbError.ForeColor = System.Drawing.Color.Red;
-            this.lbError.Location = new System.Drawing.Point(176, 198);
+            this.lbError.Location = new System.Drawing.Point(233, 232);
             this.lbError.Name = "lbError";
             this.lbError.Size = new System.Drawing.Size(0, 16);
             this.lbError.TabIndex = 6;
@@ -106,7 +108,7 @@
             // 
             this.rbNhanVien.AutoSize = true;
             this.rbNhanVien.Checked = true;
-            this.rbNhanVien.Location = new System.Drawing.Point(153, 230);
+            this.rbNhanVien.Location = new System.Drawing.Point(185, 266);
             this.rbNhanVien.Name = "rbNhanVien";
             this.rbNhanVien.Size = new System.Drawing.Size(88, 20);
             this.rbNhanVien.TabIndex = 7;
@@ -117,18 +119,29 @@
             // rbKhachHang
             // 
             this.rbKhachHang.AutoSize = true;
-            this.rbKhachHang.Location = new System.Drawing.Point(279, 230);
+            this.rbKhachHang.Location = new System.Drawing.Point(311, 266);
             this.rbKhachHang.Name = "rbKhachHang";
             this.rbKhachHang.Size = new System.Drawing.Size(98, 20);
             this.rbKhachHang.TabIndex = 8;
             this.rbKhachHang.Text = "Khách hàng";
             this.rbKhachHang.UseVisualStyleBackColor = true;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(228, 87);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(170, 20);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "THÁI BÌNH PHARMA";
+            // 
             // DangNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(526, 320);
+            this.ClientSize = new System.Drawing.Size(653, 389);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.rbKhachHang);
             this.Controls.Add(this.rbNhanVien);
             this.Controls.Add(this.lbError);
@@ -139,7 +152,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "DangNhap";
-            this.Text = "Form1";
+            this.Text = "Đăng Nhập";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -156,6 +169,7 @@
         private System.Windows.Forms.Label lbError;
         private System.Windows.Forms.RadioButton rbNhanVien;
         private System.Windows.Forms.RadioButton rbKhachHang;
+        private System.Windows.Forms.Label label4;
     }
 }
 

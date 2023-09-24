@@ -21,6 +21,10 @@ namespace QuanLyHieuThuoc
         public DangNhap()
         {
             InitializeComponent();
+            txtMatKhau.PasswordChar = '*';
+
+            rbKhachHang.Visible = false;
+            rbNhanVien.Visible = false;
         }
 
         private void btnDangNhap_Click(object sender, EventArgs e)
@@ -29,7 +33,31 @@ namespace QuanLyHieuThuoc
             {
                 if (txtMatKhau.Text != "")
                 {
-                    if( rbNhanVien.Checked)
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("DangNhapNV", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@tenTaiKhoanNV", txtTenDangNhap.Text);
+                    cmd.Parameters.AddWithValue("@matKhauNV", txtMatKhau.Text);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+
+                    da.Fill(dt);
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        currentUser = new User { Username = dt.Rows[0]["sTenTaiKhoanNV"].ToString(), Role = dt.Rows[0]["sQuyen"].ToString() };
+                        MessageBox.Show("Đăng nhập thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        FormNhanVien form = new FormNhanVien(currentUser);
+                        this.Hide();
+                        form.Show();
+                    }
+                    else
+                    {
+                        lbError.Text = "Tài khoản mật khẩu không chính xác";
+                    }
+                    connection.Close();
+
+                    /*if( rbNhanVien.Checked)
                     {
                         connection.Open();
                         SqlCommand cmd = new SqlCommand("DangNhapNV", connection);
@@ -84,7 +112,7 @@ namespace QuanLyHieuThuoc
                     else
                     {
                         lbError.Text = "Lựa chọn quyền truy cập";
-                    }
+                    }*/
                 }
                 else
                 {

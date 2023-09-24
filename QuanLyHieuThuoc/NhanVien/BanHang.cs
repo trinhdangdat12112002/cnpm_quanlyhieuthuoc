@@ -102,18 +102,6 @@ namespace QuanLyHieuThuoc.NhanVien
             }
             viewThuoc.ScrollBars = ScrollBars.None;
 
-            txtTenThuoc.ReadOnly = true;
-            txtTenLoaiThuoc.ReadOnly = true;
-            txtThongTin.ReadOnly = true;
-            txtNuocSanXuat.ReadOnly = true;
-            txtHangSanXuat.ReadOnly = true;
-            txtGiaBan.ReadOnly = true;
-            txtCachDung.ReadOnly = true;
-
-            txtNgaySanXuat.Enabled = false;
-            txtHanSuDung.Enabled = false;
-
-            txtSoLuonDat.Enabled = false;
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -134,6 +122,21 @@ namespace QuanLyHieuThuoc.NhanVien
         private void viewThuoc_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             viewThuoc.ClearSelection();
+
+            txtTenThuoc.ReadOnly = true;
+            txtTenLoaiThuoc.ReadOnly = true;
+            txtThongTin.ReadOnly = true;
+            txtNuocSanXuat.ReadOnly = true;
+            txtHangSanXuat.ReadOnly = true;
+            txtGiaBan.ReadOnly = true;
+            txtCachDung.ReadOnly = true;
+
+            txtNgaySanXuat.Enabled = false;
+            txtHanSuDung.Enabled = false;
+
+            txtSoLuonDat.Enabled = false;
+            btnThem.Enabled = false;
+            btnHoanThanh.Enabled = false;
         }
 
         private void viewThuoc_SelectionChanged(object sender, EventArgs e)
@@ -149,6 +152,7 @@ namespace QuanLyHieuThuoc.NhanVien
             txtSoLuonDat.Clear();
 
             txtSoLuonDat.Enabled = true;
+            btnThem.Enabled = true;
 
             if (viewThuoc.SelectedRows.Count > 0)
             {
@@ -269,6 +273,8 @@ namespace QuanLyHieuThuoc.NhanVien
 
                             TongTien += float.Parse(selectedRow.Cells["fGiaBan"].Value.ToString()) * int.Parse(txtSoLuonDat.Text);
                             lbTongTien.Text = TongTien.ToString();
+
+                            btnHoanThanh.Enabled = true;
                         }
                         else
                         {
@@ -281,6 +287,81 @@ namespace QuanLyHieuThuoc.NhanVien
                     MessageBox.Show("Mã này đã có trong danh sách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            if (viewChiTietDat.SelectedRows.Count > 0)
+            {
+                int rowIndex = viewChiTietDat.SelectedRows[0].Index;
+                if (viewChiTietDat.SelectedRows[0].Cells["fGiaBan"].Value != null)
+                {
+                    float giaBan = float.Parse(viewChiTietDat.SelectedRows[0].Cells["fGiaBan"].Value.ToString());
+                    int soLuong = int.Parse(viewChiTietDat.SelectedRows[0].Cells[4].Value.ToString());
+                    TongTien -= giaBan * soLuong;
+                    lbTongTien.Text = TongTien.ToString();
+                }
+                viewChiTietDat.Rows.RemoveAt(rowIndex);
+            }
+        }
+
+        private void btnHoanThanh_Click(object sender, EventArgs e)
+        {
+            SqlCommand cmdInsertHoaDon = new SqlCommand("INSERT INTO tblBanHang (sMaNV, dNgayBan) VALUES (@maNV, @ngayLap); SELECT SCOPE_IDENTITY();", connection);
+            cmdInsertHoaDon.Parameters.AddWithValue("@maNV", maNV);
+            cmdInsertHoaDon.Parameters.AddWithValue("@ngayLap", DateTime.Now);
+
+            connection.Open();
+            int maHoaDon = Convert.ToInt32(cmdInsertHoaDon.ExecuteScalar()); 
+            connection.Close();
+
+            try
+            {
+                foreach (DataGridViewRow row in viewChiTietDat.Rows)
+                {
+                    string maSP = row.Cells[0].Value.ToString();
+                    string maLo = row.Cells[3].Value.ToString();
+                    int soLuongDat = int.Parse(row.Cells[4].Value.ToString());
+
+                    // Tạo một đối tượng SqlCommand để thêm chi tiết hóa đơn vào cơ sở dữ liệu
+                    SqlCommand cmdInsertChiTietHoaDon = new SqlCommand("INSERT INTO tblChiTietBanHang (iMaBanHang, sMaSP, sMaLo, iSoLuongBan) VALUES (@maHD, @maSP, @maLo, @soLuong);", connection);
+                    cmdInsertChiTietHoaDon.Parameters.AddWithValue("@maHD", maHoaDon);
+                    cmdInsertChiTietHoaDon.Parameters.AddWithValue("@maSP", maSP);
+                    cmdInsertChiTietHoaDon.Parameters.AddWithValue("@maLo", maLo);
+                    cmdInsertChiTietHoaDon.Parameters.AddWithValue("@soLuong", soLuongDat);
+                    connection.Open ();
+                    cmdInsertChiTietHoaDon.ExecuteNonQuery();
+                    connection.Close();
+
+                    SqlCommand cmd5 = new SqlCommand("UPDATE tblBanHang " +
+                        " SET fTongTien = @tongTien " +
+                        " where iMaBanHang = @maHD", connection);
+                    cmd5.Parameters.AddWithValue("@maHD", maHoaDon);
+                    cmd5.Parameters.AddWithValue("@tongTien", TongTien);
+                    connection.Open();
+                    cmd5.ExecuteNonQuery();
+                    connection.Close();
+
+                    SqlCommand cmd3 = new SqlCommand("Update tblLoSanPham " +
+                        " set iSoLuongTrongLo = iSoLuongTrongLo - @soluong" +
+                        " where sMaSP = @maSP and sMaLo = @maLo", connection);
+                    cmd3.Parameters.AddWithValue("@maSP", maSP);
+                    cmd3.Parameters.AddWithValue("@maLo", maLo);
+                    cmd3.Parameters.AddWithValue("@soLuong", soLuongDat);
+                    connection.Open();
+                    cmd3.ExecuteNonQuery();
+                    connection.Close();
+                }
+
+                MessageBox.Show("Thêm hóa đơn thành công!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi thêm hóa đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+            BanHang_Load(null, null);
+
         }
     }
 }

@@ -9,19 +9,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QuanLyHieuThuoc.DangNhap;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
-namespace QuanLyHieuThuoc.NhanVien
+namespace QuanLyHieuThuoc.QuanLy
 {
-    public partial class LichSuBanHang : Form
+    public partial class DanhSachNhap : Form
     {
         SqlConnection connection = new SqlConnection("data source=DESKTOP-KHO76ED;Initial Catalog=HieuThuoc;Integrated Security=True");
 
         private string username;
         private User currentUser;
         string maNV;
-        public LichSuBanHang(User user)
+        public DanhSachNhap( User user)
         {
             InitializeComponent();
+
             currentUser = user;
             username = user.Username;
 
@@ -33,7 +35,7 @@ namespace QuanLyHieuThuoc.NhanVien
                 cmd.CommandType = CommandType.Text;
                 SqlDataReader reader = cmd.ExecuteReader();
 
-                if (reader.Read()) // Đọc dòng đầu tiên
+                if (reader.Read())
                 {
                     maNV = reader["sMaNV"].ToString();
                 }
@@ -51,10 +53,12 @@ namespace QuanLyHieuThuoc.NhanVien
             txtDen.CustomFormat = "dd/MM/yyyy";
         }
 
-        private void LichSuBanHang_Load(object sender, EventArgs e)
+        private void DanhSachNhap_Load(object sender, EventArgs e)
         {
             connection.Open();
-            SqlCommand cmd1 = new SqlCommand("SELECT iMaBanHang, dNgayBan , fTongTien FROM tblBanHang where sMaNV = @maNV", connection);
+            SqlCommand cmd1 = new SqlCommand("SELECT iMaHoaDonNhap, sTenNV , sTenNCC, sMaLo , dNgayNhap , sGhiChuNhap " +
+                " from tblHoaDonNhap inner join tblNhanVien on tblHoaDonNhap.sMaNV = tblNhanVien.sMaNV" +
+                " inner join tblNhaCungCap on tblNhaCungCap.sMaNCC = tblHoaDonNhap.sMaNCC " , connection);
             cmd1.CommandType = CommandType.Text;
             cmd1.Parameters.AddWithValue("@maNV", maNV);
             SqlDataAdapter adapter1 = new SqlDataAdapter(cmd1);
@@ -68,16 +72,28 @@ namespace QuanLyHieuThuoc.NhanVien
             {
                 switch (col.Name)
                 {
-                    case "iMaBanHang":
-                        col.HeaderText = "Mã Hóa Đơn";
+                    case "iMaHoaDonNhap":
+                        col.HeaderText = "Mã Nhập";
                         col.Width = 100;
                         break;
-                    case "dNgayBan":
-                        col.HeaderText = "Ngày Bán";
+                    case "sTenNV":
+                        col.HeaderText = "Tên Nhân Viên";
                         col.Width = 100;
                         break;
-                    case "fTongTien":
-                        col.HeaderText = "Tổng Tiền";
+                    case "sTenNCC":
+                        col.HeaderText = "Tên Nhà Cung Cấp";
+                        col.Width = 100;
+                        break;
+                    case "sMaLo":
+                        col.HeaderText = "Mã Lô";
+                        col.Width = 100;
+                        break;
+                    case "dNgayNhap":
+                        col.HeaderText = "Ngày Lập";
+                        col.Width = 100;
+                        break;
+                    case "sGhiChuNhap":
+                        col.HeaderText = "Ghi Chú";
                         col.Width = 100;
                         break;
                     default:
@@ -97,12 +113,12 @@ namespace QuanLyHieuThuoc.NhanVien
             if (viewLichSu.SelectedRows.Count > 0)
             {
                 DataGridViewRow selectedRow = viewLichSu.SelectedRows[0];
-                int madat = Convert.ToInt32(selectedRow.Cells["iMaBanHang"].Value.ToString());
+                int madat = Convert.ToInt32(selectedRow.Cells["iMaHoaDonNhap"].Value.ToString());
 
                 connection.Open();
-                SqlCommand cmd1 = new SqlCommand("SELECT sTenSP , iSoLuongBan, fGiaBan " +
-                    " FROM tblChiTietBanHang inner join tblSanPham on  tblChiTietBanHang.sMaSP = tblSanPham.sMaSP" +
-                    " where iMaBanHang = @maBanHang", connection);
+                SqlCommand cmd1 = new SqlCommand("SELECT sTenSP , iSoLuongNhap, fGiaNhap " +
+                    " FROM tblChiTietNhap inner join tblSanPham on  tblChiTietNhap.sMaSP = tblSanPham.sMaSP" +
+                    " where iMaHoaDonNhap = @maBanHang", connection);
                 cmd1.CommandType = CommandType.Text;
                 cmd1.Parameters.AddWithValue("@maBanHang", madat);
 
@@ -121,11 +137,11 @@ namespace QuanLyHieuThuoc.NhanVien
                             col.HeaderText = "Ten San Pham";
                             col.Width = 100;
                             break;
-                        case "iSoLuongBan":
+                        case "iSoLuongNhap":
                             col.HeaderText = "So Luong";
                             col.Width = 100;
                             break;
-                        case "fGiaBan":
+                        case "fGiaNhap":
                             col.HeaderText = "Gia ban";
                             col.Width = 100;
                             break;
@@ -140,8 +156,11 @@ namespace QuanLyHieuThuoc.NhanVien
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             connection.Open();
-            SqlCommand cmd1 = new SqlCommand("SELECT iMaBanHang, dNgayBan , fTongTien FROM tblBanHang where sMaNV = @maNV " +
-                " and iMaBanHang like @kyTu", connection);
+            SqlCommand cmd1 = new SqlCommand("SELECT iMaHoaDonNhap, sTenNV , sTenNCC, sMaLo , dNgayNhap , sGhiChuNhap " +
+                " from tblHoaDonNhap inner join tblNhanVien on tblHoaDonNhap.sMaNV = tblNhanVien.sMaNV" +
+                " inner join tblNhaCungCap on tblNhaCungCap.sMaNCC = tblHoaDonNhap.sMaNCC " +
+                " and iMaHoaDonNhap like @kyTu" +
+                " or sTenNCC like @kyTu", connection);
             cmd1.CommandType = CommandType.Text;
             cmd1.Parameters.AddWithValue("@maNV", maNV);
             cmd1.Parameters.AddWithValue("@kyTu", "%" + txtSearch.Text + "%");
@@ -166,7 +185,10 @@ namespace QuanLyHieuThuoc.NhanVien
             else
             {
                 connection.Open();
-                SqlCommand cmd1 = new SqlCommand("SELECT iMaBanHang, dNgayBan, fTongTien FROM tblBanHang WHERE sMaNV = @maNV AND dNgayBan > @ngayTu -1 and dNgayBan < @ngayDen + 1 ", connection);
+                SqlCommand cmd1 = new SqlCommand("SELECT iMaHoaDonNhap, sTenNV , sTenNCC, sMaLo , dNgayNhap , sGhiChuNhap " +
+                    " from tblHoaDonNhap inner join tblNhanVien on tblHoaDonNhap.sMaNV = tblNhanVien.sMaNV" +
+                    " inner join tblNhaCungCap on tblNhaCungCap.sMaNCC = tblHoaDonNhap.sMaNCC " +
+                    " AND dNgayNhap > @ngayTu -1 and dNgayNhap < @ngayDen + 1 ", connection);
                 cmd1.CommandType = CommandType.Text;
                 cmd1.Parameters.AddWithValue("@maNV", maNV);
                 cmd1.Parameters.AddWithValue("@ngayTu", ngayTu);

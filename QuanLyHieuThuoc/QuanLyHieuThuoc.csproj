@@ -142,23 +142,17 @@
     <Compile Include="NhanVien\DanhSachLoaiThuoc.Designer.cs">
       <DependentUpon>DanhSachLoaiThuoc.cs</DependentUpon>
     </Compile>
-    <Compile Include="NhanVien\DatHangDaXacNhan.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="NhanVien\DatHangDaXacNhan.Designer.cs">
-      <DependentUpon>DatHangDaXacNhan.cs</DependentUpon>
-    </Compile>
-    <Compile Include="NhanVien\DatHangDoiXacNhan.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="NhanVien\DatHangDoiXacNhan.Designer.cs">
-      <DependentUpon>DatHangDoiXacNhan.cs</DependentUpon>
-    </Compile>
     <Compile Include="NhanVien\LichSuBanHang.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="NhanVien\LichSuBanHang.Designer.cs">
       <DependentUpon>LichSuBanHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NhanVien\LichSuNhapHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NhanVien\LichSuNhapHang.Designer.cs">
+      <DependentUpon>LichSuNhapHang.cs</DependentUpon>
     </Compile>
     <Compile Include="NhanVien\NhapHang.cs">
       <SubType>Form</SubType>
@@ -168,6 +162,36 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuanLy\DanhSachLichSu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuanLy\DanhSachLichSu.Designer.cs">
+      <DependentUpon>DanhSachLichSu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuanLy\DanhSachNhaCungCap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuanLy\DanhSachNhaCungCap.Designer.cs">
+      <DependentUpon>DanhSachNhaCungCap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuanLy\DanhSachNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuanLy\DanhSachNhanVien.Designer.cs">
+      <DependentUpon>DanhSachNhanVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuanLy\DanhSachNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuanLy\DanhSachNhap.Designer.cs">
+      <DependentUpon>DanhSachNhap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuanLy\DanhSachTaiKhoan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuanLy\DanhSachTaiKhoan.Designer.cs">
+      <DependentUpon>DanhSachTaiKhoan.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="DangNhap.resx">
       <DependentUpon>DangNhap.cs</DependentUpon>
     </EmbeddedResource>
@@ -216,6 +240,15 @@
     <EmbeddedResource Include="NhanVien\DanhSachThuoc.resx">
       <DependentUpon>DanhSachThuoc.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NhanVien\LichSuBanHang.resx">
+      <DependentUpon>LichSuBanHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NhanVien\LichSuNhapHang.resx">
+      <DependentUpon>LichSuNhapHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NhanVien\NhapHang.resx">
+      <DependentUpon>NhapHang.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -225,6 +258,21 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="QuanLy\DanhSachLichSu.resx">
+      <DependentUpon>DanhSachLichSu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuanLy\DanhSachNhaCungCap.resx">
+      <DependentUpon>DanhSachNhaCungCap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuanLy\DanhSachNhanVien.resx">
+      <DependentUpon>DanhSachNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuanLy\DanhSachNhap.resx">
+      <DependentUpon>DanhSachNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuanLy\DanhSachTaiKhoan.resx">
+      <DependentUpon>DanhSachTaiKhoan.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

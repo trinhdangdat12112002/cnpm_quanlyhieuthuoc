@@ -63,6 +63,7 @@
             this.viewThuoc = new System.Windows.Forms.DataGridView();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnXoa = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.viewChiTietDat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewThuoc)).BeginInit();
             this.SuspendLayout();
@@ -178,6 +179,7 @@
             this.btnHoanThanh.TabIndex = 83;
             this.btnHoanThanh.Text = "Hoàn thành";
             this.btnHoanThanh.UseVisualStyleBackColor = true;
+            this.btnHoanThanh.Click += new System.EventHandler(this.btnHoanThanh_Click);
             // 
             // txtHanSuDung
             // 
@@ -377,11 +379,22 @@
             this.label1.TabIndex = 52;
             this.label1.Text = "Tìm kiếm";
             // 
+            // btnXoa
+            // 
+            this.btnXoa.Location = new System.Drawing.Point(749, 596);
+            this.btnXoa.Name = "btnXoa";
+            this.btnXoa.Size = new System.Drawing.Size(75, 23);
+            this.btnXoa.TabIndex = 86;
+            this.btnXoa.Text = "Xóa";
+            this.btnXoa.UseVisualStyleBackColor = true;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
+            // 
             // BanHang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1357, 772);
+            this.Controls.Add(this.btnXoa);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.viewChiTietDat);
             this.Controls.Add(this.btnThem);
@@ -459,5 +472,6 @@
         private System.Windows.Forms.DataGridView viewThuoc;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnXoa;
     }
 }

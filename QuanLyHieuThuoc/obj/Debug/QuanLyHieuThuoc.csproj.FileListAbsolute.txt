@@ -23,3 +23,11 @@ C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieu
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.NhanVien.DanhSachLoaiThuoc.resources
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.NhanVien.DanhSachLoHang.resources
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.NhanVien.BanHang.resources
+C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.NhanVien.NhapHang.resources
+C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.NhanVien.LichSuNhapHang.resources
+C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.NhanVien.LichSuBanHang.resources
+C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.QuanLy.DanhSachLichSu.resources
+C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.QuanLy.DanhSachNhaCungCap.resources
+C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.QuanLy.DanhSachNhanVien.resources
+C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.QuanLy.DanhSachTaiKhoan.resources
+C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.QuanLy.DanhSachNhap.resources

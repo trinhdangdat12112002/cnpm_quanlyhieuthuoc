@@ -1,6 +1,6 @@
-﻿namespace QuanLyHieuThuoc.NhanVien
+﻿namespace QuanLyHieuThuoc.QuanLy
 {
-    partial class LichSuBanHang
+    partial class DanhSachLichSu
     {
         /// <summary>
         /// Required designer variable.
@@ -47,21 +47,21 @@
             this.viewChiTietLichSu.AllowUserToAddRows = false;
             this.viewChiTietLichSu.AllowUserToDeleteRows = false;
             this.viewChiTietLichSu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.viewChiTietLichSu.Location = new System.Drawing.Point(864, 131);
+            this.viewChiTietLichSu.Location = new System.Drawing.Point(855, 96);
             this.viewChiTietLichSu.Name = "viewChiTietLichSu";
             this.viewChiTietLichSu.ReadOnly = true;
             this.viewChiTietLichSu.RowHeadersWidth = 51;
             this.viewChiTietLichSu.RowTemplate.Height = 24;
             this.viewChiTietLichSu.Size = new System.Drawing.Size(592, 388);
-            this.viewChiTietLichSu.TabIndex = 19;
+            this.viewChiTietLichSu.TabIndex = 29;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(1019, 80);
+            this.label4.Location = new System.Drawing.Point(1010, 45);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(124, 16);
-            this.label4.TabIndex = 18;
+            this.label4.TabIndex = 28;
             this.label4.Text = "CHI TIẾT ĐƠN ĐẶT";
             // 
             // viewLichSu
@@ -69,45 +69,45 @@
             this.viewLichSu.AllowUserToAddRows = false;
             this.viewLichSu.AllowUserToDeleteRows = false;
             this.viewLichSu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.viewLichSu.Location = new System.Drawing.Point(21, 131);
+            this.viewLichSu.Location = new System.Drawing.Point(12, 96);
             this.viewLichSu.Name = "viewLichSu";
             this.viewLichSu.ReadOnly = true;
             this.viewLichSu.RowHeadersWidth = 51;
             this.viewLichSu.RowTemplate.Height = 24;
             this.viewLichSu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.viewLichSu.Size = new System.Drawing.Size(737, 388);
-            this.viewLichSu.TabIndex = 17;
+            this.viewLichSu.TabIndex = 27;
             this.viewLichSu.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.viewLichSu_DataBindingComplete);
             this.viewLichSu.SelectionChanged += new System.EventHandler(this.viewLichSu_SelectionChanged);
             // 
             // txtDen
             // 
-            this.txtDen.Location = new System.Drawing.Point(505, 63);
+            this.txtDen.Location = new System.Drawing.Point(496, 28);
             this.txtDen.Name = "txtDen";
             this.txtDen.Size = new System.Drawing.Size(142, 22);
-            this.txtDen.TabIndex = 16;
+            this.txtDen.TabIndex = 26;
             // 
             // txtTu
             // 
-            this.txtTu.Location = new System.Drawing.Point(333, 64);
+            this.txtTu.Location = new System.Drawing.Point(324, 29);
             this.txtTu.Name = "txtTu";
             this.txtTu.Size = new System.Drawing.Size(128, 22);
-            this.txtTu.TabIndex = 15;
+            this.txtTu.TabIndex = 25;
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(106, 63);
+            this.txtSearch.Location = new System.Drawing.Point(97, 28);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(177, 22);
-            this.txtSearch.TabIndex = 14;
+            this.txtSearch.TabIndex = 24;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // btnLoc
             // 
-            this.btnLoc.Location = new System.Drawing.Point(664, 63);
+            this.btnLoc.Location = new System.Drawing.Point(655, 28);
             this.btnLoc.Name = "btnLoc";
             this.btnLoc.Size = new System.Drawing.Size(94, 25);
-            this.btnLoc.TabIndex = 13;
+            this.btnLoc.TabIndex = 23;
             this.btnLoc.Text = "Lọc";
             this.btnLoc.UseVisualStyleBackColor = true;
             this.btnLoc.Click += new System.EventHandler(this.btnLoc_Click);
@@ -115,35 +115,35 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(467, 69);
+            this.label3.Location = new System.Drawing.Point(458, 34);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 16);
-            this.label3.TabIndex = 12;
+            this.label3.TabIndex = 22;
             this.label3.Text = "Đến";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(303, 69);
+            this.label2.Location = new System.Drawing.Point(294, 34);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(23, 16);
-            this.label2.TabIndex = 11;
+            this.label2.TabIndex = 21;
             this.label2.Text = "Từ";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 70);
+            this.label1.Location = new System.Drawing.Point(9, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 16);
-            this.label1.TabIndex = 10;
+            this.label1.TabIndex = 20;
             this.label1.Text = "Tìm kiếm";
             // 
-            // LichSuBanHang
+            // DanhSachLichSu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1485, 894);
+            this.ClientSize = new System.Drawing.Size(1479, 668);
             this.Controls.Add(this.viewChiTietLichSu);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.viewLichSu);
@@ -154,9 +154,9 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "LichSuBanHang";
-            this.Text = "LichSuBanHang";
-            this.Load += new System.EventHandler(this.LichSuBanHang_Load);
+            this.Name = "DanhSachLichSu";
+            this.Text = "DanhSachLichSu";
+            this.Load += new System.EventHandler(this.DanhSachLichSu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.viewChiTietLichSu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewLichSu)).EndInit();
             this.ResumeLayout(false);

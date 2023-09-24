@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QuanLyHieuThuoc.DangNhap;
 
-namespace QuanLyHieuThuoc.NhanVien
+namespace QuanLyHieuThuoc.QuanLy
 {
-    public partial class LichSuBanHang : Form
+    public partial class DanhSachLichSu : Form
     {
         SqlConnection connection = new SqlConnection("data source=DESKTOP-KHO76ED;Initial Catalog=HieuThuoc;Integrated Security=True");
 
         private string username;
         private User currentUser;
         string maNV;
-        public LichSuBanHang(User user)
+        public DanhSachLichSu(User user)
         {
             InitializeComponent();
             currentUser = user;
@@ -33,7 +33,7 @@ namespace QuanLyHieuThuoc.NhanVien
                 cmd.CommandType = CommandType.Text;
                 SqlDataReader reader = cmd.ExecuteReader();
 
-                if (reader.Read()) // Đọc dòng đầu tiên
+                if (reader.Read()) 
                 {
                     maNV = reader["sMaNV"].ToString();
                 }
@@ -51,12 +51,12 @@ namespace QuanLyHieuThuoc.NhanVien
             txtDen.CustomFormat = "dd/MM/yyyy";
         }
 
-        private void LichSuBanHang_Load(object sender, EventArgs e)
+        private void DanhSachLichSu_Load(object sender, EventArgs e)
         {
             connection.Open();
-            SqlCommand cmd1 = new SqlCommand("SELECT iMaBanHang, dNgayBan , fTongTien FROM tblBanHang where sMaNV = @maNV", connection);
+            SqlCommand cmd1 = new SqlCommand("SELECT iMaBanHang, dNgayBan , fTongTien,  sTenNV" +
+                " FROM tblBanHang inner join tblNhanVien on tblBanHang.sMaNV = tblNhanVien.sMaNV", connection);
             cmd1.CommandType = CommandType.Text;
-            cmd1.Parameters.AddWithValue("@maNV", maNV);
             SqlDataAdapter adapter1 = new SqlDataAdapter(cmd1);
             connection.Close();
 
@@ -78,6 +78,10 @@ namespace QuanLyHieuThuoc.NhanVien
                         break;
                     case "fTongTien":
                         col.HeaderText = "Tổng Tiền";
+                        col.Width = 100;
+                        break;
+                    case "sTenNV":
+                        col.HeaderText = "Tên Nhân Viên";
                         col.Width = 100;
                         break;
                     default:

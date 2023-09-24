@@ -16,11 +16,20 @@ namespace QuanLyHieuThuoc
         private int childFormNumber = 0;
 
         private User currentUser;
+        string quyen;
         public FormNhanVien(User user)
         {
             InitializeComponent();
             currentUser = user;
             lbNhanVien.Text = user.Username;
+            quyen = user.Role;
+
+            if ( quyen == "Nhân viên")
+            {
+                danhSáchNhàCungCấpToolStripMenuItem.Visible = false;
+                danhSaToolStripMenuItem.Visible=false;
+                danhSáchTàiKhoảnToolStripMenuItem.Visible =     false;
+            }
         }
 
         private void ShowNewForm(object sender, EventArgs e)
@@ -98,7 +107,7 @@ namespace QuanLyHieuThuoc
                 childForm.Close();
             }
         }
-        private List<Form> openedForms = new List<Form>();
+        public List<Form> openedForms = new List<Form>();
 
         private void danhSáchThuốcToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -165,68 +174,168 @@ namespace QuanLyHieuThuoc
             form.Show();
         }
 
-        private void đơnĐợiXácNhậnToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            foreach (Form openedForm in openedForms)
-            {
-                if (openedForm is NhanVien.DatHangDoiXacNhan)
-                {
-                    openedForm.BringToFront();
-                    MessageBox.Show("Form này vẫn đang mở", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-            }
-
-            NhanVien.DatHangDoiXacNhan form = new NhanVien.DatHangDoiXacNhan();
-            form.MdiParent = this;
-            form.FormClosed += (s, args) => openedForms.Remove(form);
-            openedForms.Add(form);
-            form.Show();
-        }
-
-        private void đơnĐãXácNhậnToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            foreach (Form openedForm in openedForms)
-            {
-                if (openedForm is NhanVien.DatHangDaXacNhan)
-                {
-                    openedForm.BringToFront();
-                    MessageBox.Show("Form này vẫn đang mở", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-            }
-
-            NhanVien.DatHangDaXacNhan form = new NhanVien.DatHangDaXacNhan();
-            form.MdiParent = this;
-            form.FormClosed += (s, args) => openedForms.Remove(form);
-            openedForms.Add(form);
-            form.Show();
-        }
-
-        private void lịchSửGiaoDịchToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            foreach (Form openedForm in openedForms)
-            {
-                if (openedForm is NhanVien.LichSuBanHang)
-                {
-                    openedForm.BringToFront();
-                    MessageBox.Show("Form này vẫn đang mở", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-            }
-
-            NhanVien.LichSuBanHang form = new NhanVien.LichSuBanHang();
-            form.MdiParent = this;
-            form.FormClosed += (s, args) => openedForms.Remove(form);
-            openedForms.Add(form);
-            form.Show();
-        }
 
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
             Form dangnhap = new DangNhap();
             dangnhap.Show();
+        }
+
+        private void đơnĐặtOnlineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Form openedForm in openedForms)
+            {
+                if (openedForm is NhanVien.NhapHang)
+                {
+                    openedForm.BringToFront();
+                    MessageBox.Show("Form này vẫn đang mở", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
+
+            NhanVien.NhapHang form = new NhanVien.NhapHang(currentUser);
+            form.MdiParent = this;
+            form.FormClosed += (s, args) => openedForms.Remove(form);
+            openedForms.Add(form);
+            form.Show();
+        }
+
+        private void bánHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (quyen == "Nhân viên")
+            {
+                foreach (Form openedForm in openedForms)
+                {
+                    if (openedForm is NhanVien.LichSuBanHang)
+                    {
+                        openedForm.BringToFront();
+                        MessageBox.Show("Form này vẫn đang mở", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+
+                NhanVien.LichSuBanHang form = new NhanVien.LichSuBanHang(currentUser);
+                form.MdiParent = this;
+                form.FormClosed += (s, args) => openedForms.Remove(form);
+                openedForms.Add(form);
+                form.Show();
+            }
+            else
+            {
+                foreach (Form openedForm in openedForms)
+                {
+                    if (openedForm is QuanLy.DanhSachLichSu)
+                    {
+                        openedForm.BringToFront();
+                        MessageBox.Show("Form này vẫn đang mở", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+
+                QuanLy.DanhSachLichSu form = new QuanLy.DanhSachLichSu(currentUser);
+                form.MdiParent = this;
+                form.FormClosed += (s, args) => openedForms.Remove(form);
+                openedForms.Add(form);
+                form.Show();
+            }
+        }
+
+        private void nhậpHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (quyen == "Nhân viên")
+            {
+                foreach (Form openedForm in openedForms)
+                {
+                    if (openedForm is NhanVien.LichSuNhapHang)
+                    {
+                        openedForm.BringToFront();
+                        MessageBox.Show("Form này vẫn đang mở", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+
+                NhanVien.LichSuNhapHang form = new NhanVien.LichSuNhapHang(currentUser);
+                form.MdiParent = this;
+                form.FormClosed += (s, args) => openedForms.Remove(form);
+                openedForms.Add(form);
+                form.Show();
+            }
+            else
+            {
+                foreach (Form openedForm in openedForms)
+                {
+                    if (openedForm is QuanLy.DanhSachNhap)
+                    {
+                        openedForm.BringToFront();
+                        MessageBox.Show("Form này vẫn đang mở", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+
+                QuanLy.DanhSachNhap form = new QuanLy.DanhSachNhap(currentUser);
+                form.MdiParent = this;
+                form.FormClosed += (s, args) => openedForms.Remove(form);
+                openedForms.Add(form);
+                form.Show();
+            }
+        }
+
+        private void danhSáchNhàCungCấpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Form openedForm in openedForms)
+            {
+                if (openedForm is QuanLy.DanhSachNhaCungCap)
+                {
+                    openedForm.BringToFront();
+                    MessageBox.Show("Form này vẫn đang mở", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
+
+            QuanLy.DanhSachNhaCungCap form = new QuanLy.DanhSachNhaCungCap(currentUser);
+            form.MdiParent = this;
+            form.FormClosed += (s, args) => openedForms.Remove(form);
+            openedForms.Add(form);
+            form.Show();
+        }
+
+        private void danhSaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Form openedForm in openedForms)
+            {
+                if (openedForm is QuanLy.DanhSachNhanVien)
+                {
+                    openedForm.BringToFront();
+                    MessageBox.Show("Form này vẫn đang mở", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
+
+            QuanLy.DanhSachNhanVien form = new QuanLy.DanhSachNhanVien(currentUser);
+            form.MdiParent = this;
+            form.FormClosed += (s, args) => openedForms.Remove(form);
+            openedForms.Add(form);
+            form.Show();
+        }
+
+        private void danhSáchTàiKhoảnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Form openedForm in openedForms)
+            {
+                if (openedForm is QuanLy.DanhSachTaiKhoan)
+                {
+                    openedForm.BringToFront();
+                    MessageBox.Show("Form này vẫn đang mở", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
+
+            QuanLy.DanhSachTaiKhoan form = new QuanLy.DanhSachTaiKhoan(currentUser);
+            form.MdiParent = this;
+            form.FormClosed += (s, args) => openedForms.Remove(form);
+            openedForms.Add(form);
+            form.Show();
         }
     }
 }
