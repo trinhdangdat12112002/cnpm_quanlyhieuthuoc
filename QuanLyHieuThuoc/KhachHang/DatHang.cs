@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 using static QuanLyHieuThuoc.DangNhap;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -15,7 +16,7 @@ namespace QuanLyHieuThuoc.KhachHang
 {
     public partial class DatHang : Form
     {
-        SqlConnection connection = new SqlConnection("data source=DESKTOP-KHO76ED;Initial Catalog=HieuThuoc;Integrated Security=True");
+        SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["HieuThuoc"].ConnectionString);
 
         private string username;
         private User currentUser;
