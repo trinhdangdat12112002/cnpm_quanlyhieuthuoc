@@ -21,7 +21,7 @@ namespace QuanLyHieuThuoc
         {
             InitializeComponent();
             currentUser = user;
-            lbNhanVien.Text = user.Username;
+            lbNhanVien.Text = user.Name;
             quyen = user.Role;
 
             if ( quyen == "Nhân viên")

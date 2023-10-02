@@ -37,8 +37,8 @@ namespace QuanLyHieuThuoc
                     connection.Open();
                     SqlCommand cmd = new SqlCommand("DangNhapNV", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@tenTaiKhoanNV", txtTenDangNhap.Text);
-                    cmd.Parameters.AddWithValue("@matKhauNV", txtMatKhau.Text);
+                    cmd.Parameters.AddWithValue("@tenTaiKhoanNV", txtTenDangNhap.Text.Trim());
+                    cmd.Parameters.AddWithValue("@matKhauNV", txtMatKhau.Text.Trim());
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
 
@@ -46,7 +46,7 @@ namespace QuanLyHieuThuoc
 
                     if (dt.Rows.Count > 0)
                     {
-                        currentUser = new User { Username = dt.Rows[0]["sTenTaiKhoanNV"].ToString(), Role = dt.Rows[0]["sQuyen"].ToString() };
+                        currentUser = new User { Username = dt.Rows[0]["sTenTaiKhoanNV"].ToString(), Role = dt.Rows[0]["sQuyen"].ToString(), Name = dt.Rows[0]["sTenNV"].ToString() };
                         MessageBox.Show("Đăng nhập thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         FormNhanVien form = new FormNhanVien(currentUser);
                         this.Hide();
@@ -129,6 +129,8 @@ namespace QuanLyHieuThuoc
         {
             public string Username { get; set; }
             public string Role { get; set; }
+
+            public string Name { get; set; }
         }
     }
 }

@@ -145,10 +145,9 @@ namespace QuanLyHieuThuoc.QuanLy
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             connection.Open();
-            SqlCommand cmd1 = new SqlCommand("SELECT iMaBanHang, dNgayBan , fTongTien FROM tblBanHang where sMaNV = @maNV " +
-                " and iMaBanHang like @kyTu", connection);
+            SqlCommand cmd1 = new SqlCommand("SELECT iMaBanHang, dNgayBan , fTongTien FROM tblBanHang " +
+                " where iMaBanHang like @kyTu", connection);
             cmd1.CommandType = CommandType.Text;
-            cmd1.Parameters.AddWithValue("@maNV", maNV);
             cmd1.Parameters.AddWithValue("@kyTu", "%" + txtSearch.Text + "%");
             SqlDataAdapter adapter = new SqlDataAdapter(cmd1);
             connection.Close();

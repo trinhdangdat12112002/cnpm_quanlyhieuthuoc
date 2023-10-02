@@ -74,7 +74,6 @@
             this.txtTenDangNhap.Name = "txtTenDangNhap";
             this.txtTenDangNhap.Size = new System.Drawing.Size(156, 22);
             this.txtTenDangNhap.TabIndex = 3;
-            this.txtTenDangNhap.Text = "error";
             // 
             // txtMatKhau
             // 
@@ -82,11 +81,10 @@
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.Size = new System.Drawing.Size(156, 22);
             this.txtMatKhau.TabIndex = 4;
-            this.txtMatKhau.Text = "error";
             // 
             // btnDangNhap
             // 
-            this.btnDangNhap.Location = new System.Drawing.Point(210, 304);
+            this.btnDangNhap.Location = new System.Drawing.Point(217, 304);
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(169, 30);
             this.btnDangNhap.TabIndex = 5;

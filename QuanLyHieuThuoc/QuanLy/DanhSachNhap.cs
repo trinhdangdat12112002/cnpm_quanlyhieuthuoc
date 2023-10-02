@@ -135,15 +135,15 @@ namespace QuanLyHieuThuoc.QuanLy
                     switch (col.Name)
                     {
                         case "sTenSP":
-                            col.HeaderText = "Ten San Pham";
+                            col.HeaderText = "Tên Sản Phẩm";
                             col.Width = 100;
                             break;
                         case "iSoLuongNhap":
-                            col.HeaderText = "So Luong";
+                            col.HeaderText = "Số Lượng";
                             col.Width = 100;
                             break;
                         case "fGiaNhap":
-                            col.HeaderText = "Gia ban";
+                            col.HeaderText = "Giá Bán";
                             col.Width = 100;
                             break;
                         default:
