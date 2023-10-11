@@ -50,186 +50,198 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DangNhap.cs">
+    <Compile Include="BusinessLogicLayer\DangNhapBLL.cs" />
+    <Compile Include="BusinessLogicLayer\NhaCungCapBLL.cs" />
+    <Compile Include="BusinessLogicLayer\NhanVienBLL.cs" />
+    <Compile Include="DataAccessLayer\NhaCungCapDAL.cs" />
+    <Compile Include="DataAccessLayer\NhanVienDAL.cs" />
+    <Compile Include="DataAccessLayer\TaiKhoanDAL.cs" />
+    <Compile Include="PresentationLayer\DangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DangNhap.Designer.cs">
+    <Compile Include="PresentationLayer\DangNhap.Designer.cs">
       <DependentUpon>DangNhap.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormKhachHang.cs">
+    <Compile Include="PresentationLayer\FormKhachHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormKhachHang.Designer.cs">
+    <Compile Include="PresentationLayer\FormKhachHang.Designer.cs">
       <DependentUpon>FormKhachHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormNhanVien.cs">
+    <Compile Include="PresentationLayer\FormNhanVien.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormNhanVien.Designer.cs">
+    <Compile Include="PresentationLayer\FormNhanVien.Designer.cs">
       <DependentUpon>FormNhanVien.cs</DependentUpon>
     </Compile>
-    <Compile Include="KhachHang\DatHang.cs">
+    <Compile Include="PresentationLayer\KhachHang\DatHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KhachHang\DatHang.Designer.cs">
+    <Compile Include="PresentationLayer\KhachHang\DatHang.Designer.cs">
       <DependentUpon>DatHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="KhachHang\DoiMatKhauKachHang.cs">
+    <Compile Include="PresentationLayer\KhachHang\DoiMatKhauKachHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KhachHang\DoiMatKhauKachHang.Designer.cs">
+    <Compile Include="PresentationLayer\KhachHang\DoiMatKhauKachHang.Designer.cs">
       <DependentUpon>DoiMatKhauKachHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="KhachHang\LichSuMuaHang.cs">
+    <Compile Include="PresentationLayer\KhachHang\LichSuMuaHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KhachHang\LichSuMuaHang.Designer.cs">
+    <Compile Include="PresentationLayer\KhachHang\LichSuMuaHang.Designer.cs">
       <DependentUpon>LichSuMuaHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="KhachHang\ThongTinKhachHang.cs">
+    <Compile Include="PresentationLayer\KhachHang\ThongTinKhachHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KhachHang\ThongTinKhachHang.Designer.cs">
+    <Compile Include="PresentationLayer\KhachHang\ThongTinKhachHang.Designer.cs">
       <DependentUpon>ThongTinKhachHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="KhachHang\TraCuuThuoc.cs">
+    <Compile Include="PresentationLayer\KhachHang\TraCuuThuoc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KhachHang\TraCuuThuoc.Designer.cs">
+    <Compile Include="PresentationLayer\KhachHang\TraCuuThuoc.Designer.cs">
       <DependentUpon>TraCuuThuoc.cs</DependentUpon>
     </Compile>
-    <Compile Include="KhachHang\UuThich.cs">
+    <Compile Include="PresentationLayer\KhachHang\UuThich.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KhachHang\UuThich.Designer.cs">
+    <Compile Include="PresentationLayer\KhachHang\UuThich.Designer.cs">
       <DependentUpon>UuThich.cs</DependentUpon>
     </Compile>
-    <Compile Include="NhanVien\BanHang.cs">
+    <Compile Include="PresentationLayer\NhanVien\BanHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NhanVien\BanHang.Designer.cs">
+    <Compile Include="PresentationLayer\NhanVien\BanHang.Designer.cs">
       <DependentUpon>BanHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="NhanVien\DanhSachThuoc.cs">
+    <Compile Include="PresentationLayer\NhanVien\DanhSachThuoc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NhanVien\DanhSachThuoc.Designer.cs">
+    <Compile Include="PresentationLayer\NhanVien\DanhSachThuoc.Designer.cs">
       <DependentUpon>DanhSachThuoc.cs</DependentUpon>
     </Compile>
-    <Compile Include="NhanVien\DanhSachLoHang.cs">
+    <Compile Include="PresentationLayer\NhanVien\DanhSachLoHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NhanVien\DanhSachLoHang.Designer.cs">
+    <Compile Include="PresentationLayer\NhanVien\DanhSachLoHang.Designer.cs">
       <DependentUpon>DanhSachLoHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="NhanVien\DanhSachLoaiThuoc.cs">
+    <Compile Include="PresentationLayer\NhanVien\DanhSachLoaiThuoc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NhanVien\DanhSachLoaiThuoc.Designer.cs">
+    <Compile Include="PresentationLayer\NhanVien\DanhSachLoaiThuoc.Designer.cs">
       <DependentUpon>DanhSachLoaiThuoc.cs</DependentUpon>
     </Compile>
-    <Compile Include="NhanVien\LichSuBanHang.cs">
+    <Compile Include="PresentationLayer\NhanVien\LichSuBanHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NhanVien\LichSuBanHang.Designer.cs">
+    <Compile Include="PresentationLayer\NhanVien\LichSuBanHang.Designer.cs">
       <DependentUpon>LichSuBanHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="NhanVien\LichSuNhapHang.cs">
+    <Compile Include="PresentationLayer\NhanVien\LichSuNhapHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NhanVien\LichSuNhapHang.Designer.cs">
+    <Compile Include="PresentationLayer\NhanVien\LichSuNhapHang.Designer.cs">
       <DependentUpon>LichSuNhapHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="NhanVien\NhapHang.cs">
+    <Compile Include="PresentationLayer\NhanVien\NhapHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NhanVien\NhapHang.Designer.cs">
+    <Compile Include="PresentationLayer\NhanVien\NhapHang.Designer.cs">
       <DependentUpon>NhapHang.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuanLy\DanhSachLichSu.cs">
+    <Compile Include="PresentationLayer\QuanLy\DanhSachLichSu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QuanLy\DanhSachLichSu.Designer.cs">
+    <Compile Include="PresentationLayer\QuanLy\DanhSachLichSu.Designer.cs">
       <DependentUpon>DanhSachLichSu.cs</DependentUpon>
     </Compile>
-    <Compile Include="QuanLy\DanhSachNhaCungCap.cs">
+    <Compile Include="PresentationLayer\QuanLy\DanhSachNhaCungCap.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QuanLy\DanhSachNhaCungCap.Designer.cs">
+    <Compile Include="PresentationLayer\QuanLy\DanhSachNhaCungCap.Designer.cs">
       <DependentUpon>DanhSachNhaCungCap.cs</DependentUpon>
     </Compile>
-    <Compile Include="QuanLy\DanhSachNhanVien.cs">
+    <Compile Include="PresentationLayer\QuanLy\DanhSachNhanVien.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QuanLy\DanhSachNhanVien.Designer.cs">
+    <Compile Include="PresentationLayer\QuanLy\DanhSachNhanVien.Designer.cs">
       <DependentUpon>DanhSachNhanVien.cs</DependentUpon>
     </Compile>
-    <Compile Include="QuanLy\DanhSachNhap.cs">
+    <Compile Include="PresentationLayer\QuanLy\DanhSachNhap.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QuanLy\DanhSachNhap.Designer.cs">
+    <Compile Include="PresentationLayer\QuanLy\DanhSachNhap.Designer.cs">
       <DependentUpon>DanhSachNhap.cs</DependentUpon>
     </Compile>
-    <Compile Include="QuanLy\DanhSachTaiKhoan.cs">
+    <Compile Include="PresentationLayer\QuanLy\DanhSachTaiKhoan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QuanLy\DanhSachTaiKhoan.Designer.cs">
+    <Compile Include="PresentationLayer\QuanLy\DanhSachTaiKhoan.Designer.cs">
       <DependentUpon>DanhSachTaiKhoan.cs</DependentUpon>
     </Compile>
-    <Compile Include="Report\HoaDonBanHang.cs">
+    <Compile Include="PresentationLayer\Report\HoaDonBanHang.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HoaDonBanHang.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <EmbeddedResource Include="DangNhap.resx">
+    <Compile Include="PresentationLayer\Report\HoaDonNHap.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HoaDonNHap.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <EmbeddedResource Include="PresentationLayer\DangNhap.resx">
       <DependentUpon>DangNhap.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormKhachHang.resx">
+    <EmbeddedResource Include="PresentationLayer\FormKhachHang.resx">
       <DependentUpon>FormKhachHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormNhanVien.resx">
+    <EmbeddedResource Include="PresentationLayer\FormNhanVien.resx">
       <DependentUpon>FormNhanVien.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KhachHang\DatHang.resx">
+    <EmbeddedResource Include="PresentationLayer\KhachHang\DatHang.resx">
       <DependentUpon>DatHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KhachHang\DoiMatKhauKachHang.resx">
+    <EmbeddedResource Include="PresentationLayer\KhachHang\DoiMatKhauKachHang.resx">
       <DependentUpon>DoiMatKhauKachHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KhachHang\LichSuMuaHang.resx">
+    <EmbeddedResource Include="PresentationLayer\KhachHang\LichSuMuaHang.resx">
       <DependentUpon>LichSuMuaHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KhachHang\ThongTinKhachHang.resx">
+    <EmbeddedResource Include="PresentationLayer\KhachHang\ThongTinKhachHang.resx">
       <DependentUpon>ThongTinKhachHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KhachHang\TraCuuThuoc.resx">
+    <EmbeddedResource Include="PresentationLayer\KhachHang\TraCuuThuoc.resx">
       <DependentUpon>TraCuuThuoc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KhachHang\UuThich.resx">
+    <EmbeddedResource Include="PresentationLayer\KhachHang\UuThich.resx">
       <DependentUpon>UuThich.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NhanVien\BanHang.resx">
+    <EmbeddedResource Include="PresentationLayer\NhanVien\BanHang.resx">
       <DependentUpon>BanHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NhanVien\DanhSachLoaiThuoc.resx">
+    <EmbeddedResource Include="PresentationLayer\NhanVien\DanhSachLoaiThuoc.resx">
       <DependentUpon>DanhSachLoaiThuoc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NhanVien\DanhSachLoHang.resx">
+    <EmbeddedResource Include="PresentationLayer\NhanVien\DanhSachLoHang.resx">
       <DependentUpon>DanhSachLoHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NhanVien\DanhSachThuoc.resx">
+    <EmbeddedResource Include="PresentationLayer\NhanVien\DanhSachThuoc.resx">
       <DependentUpon>DanhSachThuoc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NhanVien\LichSuBanHang.resx">
+    <EmbeddedResource Include="PresentationLayer\NhanVien\LichSuBanHang.resx">
       <DependentUpon>LichSuBanHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NhanVien\LichSuNhapHang.resx">
+    <EmbeddedResource Include="PresentationLayer\NhanVien\LichSuNhapHang.resx">
       <DependentUpon>LichSuNhapHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NhanVien\NhapHang.resx">
+    <EmbeddedResource Include="PresentationLayer\NhanVien\NhapHang.resx">
       <DependentUpon>NhapHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -241,24 +253,28 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="QuanLy\DanhSachLichSu.resx">
+    <EmbeddedResource Include="PresentationLayer\QuanLy\DanhSachLichSu.resx">
       <DependentUpon>DanhSachLichSu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="QuanLy\DanhSachNhaCungCap.resx">
+    <EmbeddedResource Include="PresentationLayer\QuanLy\DanhSachNhaCungCap.resx">
       <DependentUpon>DanhSachNhaCungCap.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="QuanLy\DanhSachNhanVien.resx">
+    <EmbeddedResource Include="PresentationLayer\QuanLy\DanhSachNhanVien.resx">
       <DependentUpon>DanhSachNhanVien.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="QuanLy\DanhSachNhap.resx">
+    <EmbeddedResource Include="PresentationLayer\QuanLy\DanhSachNhap.resx">
       <DependentUpon>DanhSachNhap.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="QuanLy\DanhSachTaiKhoan.resx">
+    <EmbeddedResource Include="PresentationLayer\QuanLy\DanhSachTaiKhoan.resx">
       <DependentUpon>DanhSachTaiKhoan.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Report\HoaDonBanHang.rpt">
+    <EmbeddedResource Include="PresentationLayer\Report\HoaDonBanHang.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>HoaDonBanHang.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresentationLayer\Report\HoaDonNHap.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>HoaDonNHap.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -276,5 +292,6 @@
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
