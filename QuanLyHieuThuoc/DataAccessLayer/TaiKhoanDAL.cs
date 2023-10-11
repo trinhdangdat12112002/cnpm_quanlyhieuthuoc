@@ -41,7 +41,7 @@ namespace QuanLyHieuThuoc.DataAccessLayer
             try
             {
                 connection.Open();
-                SqlCommand cmd1 = new SqlCommand("SELECT sTenNV , sTenTaiKhoanNV, sMatKhauNV , sQuyen " +
+                SqlCommand cmd1 = new SqlCommand("SELECT tblTaiKhoan.sMaNV, sTenNV , sTenTaiKhoanNV, sMatKhauNV , sQuyen " +
                     " FROM tblTaiKhoan inner join tblNhanVien on tblTaiKhoan.sMaNV = tblNhanVien.sMaNV", connection);
                 cmd1.CommandType = CommandType.Text;
                 SqlDataAdapter adapter1 = new SqlDataAdapter(cmd1);
@@ -73,28 +73,65 @@ namespace QuanLyHieuThuoc.DataAccessLayer
             try
             {
                 connection.Open();
-                SqlCommand cmd1 = new SqlCommand("SELECT COUNT(*) FROM tblTaiKhoan WHERE sTenTaiKhoan = @tenDN", connection);
+                SqlCommand cmd1 = new SqlCommand("SELECT COUNT(*) FROM tblTaiKhoan WHERE sTenTaiKhoanNV = @tenDN", connection);
                 cmd1.Parameters.AddWithValue("@tenDN", tenDangNhap);
 
                 int count = (int)cmd1.ExecuteScalar();
-                connection.Close(); return count;
+                connection.Close();
+                if (count > 0) return 1; else return 0;
             }
             catch { throw; }
         }
 
-        public void insertTaiKhoan ()
+        public int insertTaiKhoan (string tenTaiKhoan, string matKhau, string quyen, string maNV)
         {
+            try
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand("INSERT INTO tblTaiKhoan (sTenTaiKhoanNV, sMatKhauNV, sQuyen, sMaNV) VALUES (@tenTaiKhoan, @matKhau, @quyen, @maNV)", connection);
+                cmd.Parameters.AddWithValue("@tenTaiKhoan", tenTaiKhoan);
+                cmd.Parameters.AddWithValue("@matKhau", matKhau);
+                cmd.Parameters.AddWithValue("@quyen", quyen);
+                cmd.Parameters.AddWithValue("@maNV", maNV);
 
+                int rowsAffected = cmd.ExecuteNonQuery();
+                connection.Close();
+                if (rowsAffected > 0) return 1; else return 0;
+            }
+            catch { throw; };
         }
 
-        public void updateTaiKhoan ()
+        public int updateTaiKhoan (string tenTaiKhoan, string matKhau, string quyen, string maNV)
         {
+            try
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand("UPDATE tblTaiKhoan SET sTenTaiKhoanNV = @tenTaiKhoan, sMatKhauNV = @matKhau, sQuyen = @quyen WHERE sMaNV = @maNV", connection);
+                cmd.Parameters.AddWithValue("@tenTaiKhoan", tenTaiKhoan);
+                cmd.Parameters.AddWithValue("@matKhau", matKhau);
+                cmd.Parameters.AddWithValue("@quyen", quyen);
+                cmd.Parameters.AddWithValue("@maNV", maNV);
 
+                int rowsAffected = cmd.ExecuteNonQuery();
+                connection.Close();
+                if (rowsAffected > 0) { return 1; } else return 0;
+            }
+            catch { throw; }
         }
 
-        public void deleteTaiKhoan ()
+        public int deleteTaiKhoan (string maNV)
         {
+            try
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM tblTaiKhoan WHERE sMaNV = @maNV", connection);
+                cmd.Parameters.AddWithValue("@maNV", maNV);
 
+                int rowsAffected = cmd.ExecuteNonQuery();
+                connection.Close();
+                if (rowsAffected > 0) { return 1; } else return 0;
+            }
+            catch { throw; }
         }
     }
 }

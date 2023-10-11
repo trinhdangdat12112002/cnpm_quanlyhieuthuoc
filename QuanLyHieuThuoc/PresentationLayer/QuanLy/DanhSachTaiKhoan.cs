@@ -20,6 +20,8 @@ namespace QuanLyHieuThuoc.QuanLy
         private string username;
         private User currentUser;
         string maNV;
+
+        BusinessLogicLayer.TaiKhoanBLL tk = new BusinessLogicLayer.TaiKhoanBLL();
         public DanhSachTaiKhoan(User user)
         {
             InitializeComponent();
@@ -40,7 +42,7 @@ namespace QuanLyHieuThuoc.QuanLy
                     maNV = reader["sMaNV"].ToString();
                 }
             }
-            catch (Exception ex)
+            catch 
             {
 
             }
@@ -82,42 +84,42 @@ namespace QuanLyHieuThuoc.QuanLy
 
         private void DanhSachTaiKhoan_Load(object sender, EventArgs e)
         {
-            connection.Open();
-            SqlCommand cmd1 = new SqlCommand("SELECT sTenNV , sTenTaiKhoanNV, sMatKhauNV , sQuyen " +
-                " FROM tblTaiKhoan inner join tblNhanVien on tblTaiKhoan.sMaNV = tblNhanVien.sMaNV", connection);
-            cmd1.CommandType = CommandType.Text;
-            SqlDataAdapter adapter1 = new SqlDataAdapter(cmd1);
-            connection.Close();
-
-            DataTable tbl_LoaiThuoc = new DataTable();
-            adapter1.Fill(tbl_LoaiThuoc);
-            viewTaiKhoan.DataSource = tbl_LoaiThuoc;
-
-            foreach (DataGridViewColumn col in viewTaiKhoan.Columns)
+            try
             {
-                switch (col.Name)
+                viewTaiKhoan.DataSource = tk.getTaiKhoan();
+
+                foreach (DataGridViewColumn col in viewTaiKhoan.Columns)
                 {
-                    case "sTenNV":
-                        col.HeaderText = "Tên Nhân Viên";
-                        col.Width = 100;
-                        break;
-                    case "sTenTaiKhoanNV":
-                        col.HeaderText = "Tên Tài Khoản";
-                        col.Width = 100;
-                        break;
-                    case "sMatKhauNV":
-                        col.HeaderText = "Mật Khẩu";
-                        col.Width = 100;
-                        break;
-                    case "sQuyen":
-                        col.HeaderText = "Quyền";
-                        break;
-                    default:
-                        col.HeaderText = col.Name;
-                        break;
+                    switch (col.Name)
+                    {
+                        case "sTenNV":
+                            col.HeaderText = "Tên Nhân Viên";
+                            col.Width = 100;
+                            break;
+                        case "sTenTaiKhoanNV":
+                            col.HeaderText = "Tên Tài Khoản";
+                            col.Width = 100;
+                            break;
+                        case "sMatKhauNV":
+                            col.HeaderText = "Mật Khẩu";
+                            col.Width = 100;
+                            break;
+                        case "sQuyen":
+                            col.HeaderText = "Quyền";
+                            break;
+                        default:
+                            col.HeaderText = col.Name;
+                            break;
+                    }
                 }
             }
-
+            catch (SqlException ex)
+            {
+                foreach (SqlError er in ex.Errors)
+                {
+                    MessageBox.Show("Lỗi :" + er.Message);
+                }
+            }
         }
 
         private void viewTaiKhoan_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -138,10 +140,10 @@ namespace QuanLyHieuThuoc.QuanLy
             {
                 DataGridViewRow selectedRow = viewTaiKhoan.SelectedRows[0];
 
-                string selectedLoaiThuoc = selectedRow.Cells["sTenNV"].Value.ToString();
+                string selectedLoaiThuoc = selectedRow.Cells["sMaNV"].Value.ToString();
                 foreach (KeyValuePair<string, string> item in cbbTenNV.Items)
                 {
-                    if (item.Value == selectedLoaiThuoc)
+                    if (item.Key == selectedLoaiThuoc)
                     {
                         cbbTenNV.SelectedItem = item;
                         break;
@@ -165,51 +167,48 @@ namespace QuanLyHieuThuoc.QuanLy
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            string tenTaiKhoan = txtTenTaiKhoan.Text;
-            string matKhau = txtMatKhau.Text;
-            string quyen = cbbQuyen.Text;
+            string tenTaiKhoan = txtTenTaiKhoan.Text.Trim();
+            string matKhau = txtMatKhau.Text.Trim();
+            string quyen = cbbQuyen.Text.Trim();
             string maNV = cbbTenNV.SelectedValue.ToString();
 
+            if (tenTaiKhoan =="")
+            {
+                MessageBox.Show("Vui lòng nhập tên đăng nhập");
+                txtTenTaiKhoan.Focus();
+                return;
+            }
+            if (matKhau == "")
+            {
+                MessageBox.Show("Vui lòng nhập mật khẩu");
+                txtMatKhau.Focus();
+                return;
+            }
             try
             {
-                connection.Open();
-                SqlCommand cmd1 = new SqlCommand("SELECT COUNT(*) FROM tblTaiKhoan WHERE sMaNV = @maNV", connection);
-                cmd1.Parameters.AddWithValue("@maNV", maNV);
-
-                int count = (int)cmd1.ExecuteScalar();
-                connection.Close();
-
-                if (count > 0)
+                if (tk.check_NV_TK(maNV) > 0)
                 {
                     MessageBox.Show("Nhân Viên đã này đã có tài khoản");
+                    return;
                 }
-                else
+                if (tk.checkTaiKhoan(tenTaiKhoan) > 0)
                 {
-                    connection.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO tblTaiKhoan (sTenTaiKhoanNV, sMatKhauNV, sQuyen, sMaNV) VALUES (@tenTaiKhoan, @matKhau, @quyen, @maNV)", connection);
-                    cmd.Parameters.AddWithValue("@tenTaiKhoan", tenTaiKhoan);
-                    cmd.Parameters.AddWithValue("@matKhau", matKhau);
-                    cmd.Parameters.AddWithValue("@quyen", quyen);
-                    cmd.Parameters.AddWithValue("@maNV", maNV);
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    connection.Close();
-                    if (rowsAffected > 0)
-                    {
-                        MessageBox.Show("Thêm tài khoản thành công!");
-                        DanhSachTaiKhoan_Load(null, null);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Thêm tài khoản thất bại!");
-                    }
+                    MessageBox.Show("Tài khoản đã tồn tại");
+                    return;
+                }
+                if (tk.insertTaiKhoan(tenTaiKhoan, matKhau, quyen, maNV) > 0)
+                {
+                    MessageBox.Show("Thêm tài khoản thành công!");
+                    DanhSachTaiKhoan_Load(null, null);
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message);
+                foreach (SqlError er in ex.Errors)
+                {
+                    MessageBox.Show("Lỗi :" + er.Message);
+                }
             }
-
         }
 
         private void btnSua_Click(object sender, EventArgs e)
@@ -217,32 +216,40 @@ namespace QuanLyHieuThuoc.QuanLy
             string tenTaiKhoan = txtTenTaiKhoan.Text;
             string matKhau = txtMatKhau.Text;
             string quyen = cbbQuyen.Text; 
-            string maNV = cbbTenNV.SelectedValue.ToString(); 
+            string maNV = cbbTenNV.SelectedValue.ToString();
+            MessageBox.Show(" " + maNV);
+
+            if (tenTaiKhoan == "")
+            {
+                MessageBox.Show("Vui lòng nhập tên đăng nhập");
+                txtTenTaiKhoan.Focus();
+                return;
+            }
+            if (matKhau == "")
+            {
+                MessageBox.Show("Vui lòng nhập mật khẩu");
+                txtMatKhau.Focus();
+                return;
+            }
 
             try
             {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand("UPDATE tblTaiKhoan SET sTenTaiKhoanNV = @tenTaiKhoan, sMatKhauNV = @matKhau, sQuyen = @quyen WHERE sMaNV = @maNV", connection);
-                cmd.Parameters.AddWithValue("@tenTaiKhoan", tenTaiKhoan);
-                cmd.Parameters.AddWithValue("@matKhau", matKhau);
-                cmd.Parameters.AddWithValue("@quyen", quyen);
-                cmd.Parameters.AddWithValue("@maNV", maNV);
-
-                int rowsAffected = cmd.ExecuteNonQuery();
-                connection.Close();
-                if (rowsAffected > 0)
+                if (tk.updateTaiKhoan(tenTaiKhoan, matKhau, quyen, maNV) > 0)
                 {
                     MessageBox.Show("Cập nhật tài khoản thành công!");
                     DanhSachTaiKhoan_Load(null, null); 
                 }
                 else
                 {
-                    MessageBox.Show("Cập nhật tài khoản thất bại!");
+                    MessageBox.Show("Cập nhật thất bại");
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message);
+                foreach (SqlError er in ex.Errors)
+                {
+                    MessageBox.Show("Lỗi :" + er.Message);
+                }
             }
         }
 
@@ -254,13 +261,7 @@ namespace QuanLyHieuThuoc.QuanLy
 
                 try
                 {
-                    connection.Open();
-                    SqlCommand cmd = new SqlCommand("DELETE FROM tblTaiKhoan WHERE sMaNV = @maNV", connection);
-                    cmd.Parameters.AddWithValue("@maNV", maNV);
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    connection.Close();
-                    if (rowsAffected > 0)
+                    if (tk.deleteTaiKhoan(maNV) > 0)
                     {
                         MessageBox.Show("Xóa tài khoản thành công!");
                         DanhSachTaiKhoan_Load(null, null); 
@@ -270,14 +271,13 @@ namespace QuanLyHieuThuoc.QuanLy
                         MessageBox.Show("Xóa tài khoản thất bại!");
                     }
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
-                    MessageBox.Show("Lỗi: " + ex.Message);
+                    foreach (SqlError er in ex.Errors)
+                    {
+                        MessageBox.Show("Lỗi :" + er.Message);
+                    }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng chọn một tài khoản để xóa.");
             }
         }
 
