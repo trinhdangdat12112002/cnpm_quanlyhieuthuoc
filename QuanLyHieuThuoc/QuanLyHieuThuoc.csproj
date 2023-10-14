@@ -52,12 +52,16 @@
   <ItemGroup>
     <Compile Include="BusinessLogicLayer\DangNhapBLL.cs" />
     <Compile Include="BusinessLogicLayer\LoaiSanPhamBLL.cs" />
+    <Compile Include="BusinessLogicLayer\LoHangBLL.cs" />
     <Compile Include="BusinessLogicLayer\NhaCungCapBLL.cs" />
     <Compile Include="BusinessLogicLayer\NhanVienBLL.cs" />
+    <Compile Include="BusinessLogicLayer\SanPhamBLL.cs" />
     <Compile Include="BusinessLogicLayer\TaiKhoanBLL.cs" />
     <Compile Include="DataAccessLayer\LoaiSanPhamDAL.cs" />
+    <Compile Include="DataAccessLayer\LoHangDAL.cs" />
     <Compile Include="DataAccessLayer\NhaCungCapDAL.cs" />
     <Compile Include="DataAccessLayer\NhanVienDAL.cs" />
+    <Compile Include="DataAccessLayer\SanPhamDAL.cs" />
     <Compile Include="DataAccessLayer\TaiKhoanDAL.cs" />
     <Compile Include="PresentationLayer\DangNhap.cs">
       <SubType>Form</SubType>

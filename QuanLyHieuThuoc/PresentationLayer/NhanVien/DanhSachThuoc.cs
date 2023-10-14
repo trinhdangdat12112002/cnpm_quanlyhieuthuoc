@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +22,8 @@ namespace QuanLyHieuThuoc.NhanVien
         private string username;
         private User currentUser;
         string maNV;
+
+        BusinessLogicLayer.SanPhamBLL sp = new BusinessLogicLayer.SanPhamBLL();
         public DanhSachThuoc(User user)
         {
             InitializeComponent();
@@ -71,15 +74,17 @@ namespace QuanLyHieuThuoc.NhanVien
             cbbLoaiThuoc.ValueMember = "Key";
 
             // Lay danh sach thuoc
-            connection.Open();
-            SqlCommand cmd1 = new SqlCommand("getAllSanPham", connection);
-            cmd1.CommandType = CommandType.StoredProcedure;
-            SqlDataAdapter adapter1 = new SqlDataAdapter(cmd1);
-            connection.Close();
-
-            DataTable tbl_LoaiThuoc = new DataTable();
-            adapter1.Fill(tbl_LoaiThuoc);
-            viewThuoc.DataSource = tbl_LoaiThuoc;
+            try
+            {
+                viewThuoc.DataSource = sp.getSanPham();
+            }
+            catch (SqlException ex)
+            {
+                foreach (SqlError er in ex.Errors)
+                {
+                    MessageBox.Show("Lỗi :" + er.Message);
+                }
+            }
 
             foreach (DataGridViewColumn col in viewThuoc.Columns)
             {
@@ -211,7 +216,7 @@ namespace QuanLyHieuThuoc.NhanVien
                 MessageBox.Show("Vui lòng nhập Cách dùng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtCachDung.Focus();
             }
-            else if (!decimal.TryParse(txtGiaBan.Text, out decimal giaBan) || giaBan <= 0)
+            else if (!float.TryParse(txtGiaBan.Text, out float giaBan) || giaBan <= 0)
             {
                 MessageBox.Show("Giá bán đang sai định dạng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtGiaBan.Focus();
@@ -221,37 +226,26 @@ namespace QuanLyHieuThuoc.NhanVien
             {
                 try
                 {
-                    connection.Open();
-                    string checkQuery = "SELECT COUNT(*) FROM tblSanPham WHERE sMaSP = @sMaSP";
-                    SqlCommand checkCommand = new SqlCommand(checkQuery, connection);
-                    checkCommand.Parameters.AddWithValue("@sMaSP", txtMaThuoc.Text);
+                    string maSP = txtMaThuoc.Text;
+                    string tenSP = txtTenThuoc.Text;
+                    string sMaLoai = ((KeyValuePair<string, string>)cbbLoaiThuoc.SelectedItem).Key;
 
-                    int existingCount = (int)checkCommand.ExecuteScalar();
+                    string hangSX = txtHangSanXuat.Text;
+                    string nuocSX = txtNuocSanXuat.Text;
+                    string thongTin = txtThongTin.Text;
+                    string cachDung = txtCachDung.Text;
 
-                    if (existingCount > 0)
+                    if (sp.checkMaSP(txtMaThuoc.Text) > 0)
                     {
                         MessageBox.Show("Mã thuốc đã tồn tại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else
                     {
-                        string insertQuery = "INSERT INTO tblSanPham (sMaSP, sTenSP, sMaLoaiSP, fGiaBan, iSoLuong, sHangSX, sNuocSX, sThongTinSP, sCachDung) " +
-                                             "VALUES (@sMaSP, @sTenSP, @sMaLoaiSP, @fGiaBan, 0, @sHangSX, @sNuocSX, @sThongTinSP, @sCachDung)" ;
-                        SqlCommand insertCommand = new SqlCommand(insertQuery, connection);
 
-                        insertCommand.Parameters.AddWithValue("@sMaSP", txtMaThuoc.Text);
-                        insertCommand.Parameters.AddWithValue("@sTenSP", txtTenThuoc.Text);
-                        insertCommand.Parameters.AddWithValue("@sMaLoaiSP", ((KeyValuePair<string, string>)cbbLoaiThuoc.SelectedItem).Key);
-                        insertCommand.Parameters.AddWithValue("@fGiaBan", decimal.Parse(txtGiaBan.Text));
-                        insertCommand.Parameters.AddWithValue("@sHangSX", txtHangSanXuat.Text);
-                        insertCommand.Parameters.AddWithValue("@sNuocSX", txtNuocSanXuat.Text);
-                        insertCommand.Parameters.AddWithValue("@sThongTinSP", txtThongTin.Text);
-                        insertCommand.Parameters.AddWithValue("@sCachDung", txtCachDung.Text);
-
-                        int rowsAffected = insertCommand.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
+                        if (sp.insertSanPham(maSP, tenSP, sMaLoai, giaBan, hangSX, nuocSX, thongTin, cachDung) > 0)
                         {
                             MessageBox.Show("Thuốc đã được thêm thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            DanhSachThuoc_Load(sender, e);
                         }
                         else
                         {
@@ -259,12 +253,13 @@ namespace QuanLyHieuThuoc.NhanVien
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
-                    MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    foreach (SqlError er in ex.Errors)
+                    {
+                        MessageBox.Show("Lỗi :" + er.Message);
+                    }
                 }
-                connection.Close();
-                DanhSachThuoc_Load(sender, e);
             }
         }
 
@@ -300,7 +295,7 @@ namespace QuanLyHieuThuoc.NhanVien
                 MessageBox.Show("Vui lòng nhập Cách dùng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtCachDung.Focus();
             }
-            else if (!decimal.TryParse(txtGiaBan.Text, out decimal giaBan) || giaBan <= 0)
+            else if (!float.TryParse(txtGiaBan.Text, out float giaBan) || giaBan <= 0)
             {
                 MessageBox.Show("Giá bán đang sai định dạng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtGiaBan.Focus();
@@ -310,39 +305,32 @@ namespace QuanLyHieuThuoc.NhanVien
             {
                 try
                 {
-                    connection.Open();
-                    string updateQuery = "UPDATE tblSanPham " +
-                                        "SET sTenSP = @sTenSP, sMaLoaiSP = @sMaLoaiSP, fGiaBan = @fGiaBan, " +
-                                        "sHangSX = @sHangSX, sNuocSX = @sNuocSX, sThongTinSP = @sThongTinSP, sCachDung = @sCachDung " +
-                                        "WHERE sMaSP = @sMaSP";
-                    SqlCommand updateCommand = new SqlCommand(updateQuery, connection);
+                    string maSP = txtMaThuoc.Text;
+                    string tenSP = txtTenThuoc.Text;
+                    string sMaLoai = ((KeyValuePair<string, string>)cbbLoaiThuoc.SelectedItem).Key;
 
-                    updateCommand.Parameters.AddWithValue("@sMaSP", txtMaThuoc.Text);
-                    updateCommand.Parameters.AddWithValue("@sTenSP", txtTenThuoc.Text);
-                    updateCommand.Parameters.AddWithValue("@sMaLoaiSP", ((KeyValuePair<string, string>)cbbLoaiThuoc.SelectedItem).Key);
-                    updateCommand.Parameters.AddWithValue("@fGiaBan", decimal.Parse(txtGiaBan.Text));
-                    updateCommand.Parameters.AddWithValue("@sHangSX", txtHangSanXuat.Text);
-                    updateCommand.Parameters.AddWithValue("@sNuocSX", txtNuocSanXuat.Text);
-                    updateCommand.Parameters.AddWithValue("@sThongTinSP", txtThongTin.Text);
-                    updateCommand.Parameters.AddWithValue("@sCachDung", txtCachDung.Text);
+                    string hangSX = txtHangSanXuat.Text;
+                    string nuocSX = txtNuocSanXuat.Text;
+                    string thongTin = txtThongTin.Text;
+                    string cachDung = txtCachDung.Text;
 
-                    int rowsAffected = updateCommand.ExecuteNonQuery();
-
-                    if (rowsAffected > 0)
+                    if (sp.updateSanPham(maSP, tenSP, sMaLoai, giaBan, hangSX, nuocSX, thongTin, cachDung) > 0)
                     {
                         MessageBox.Show("Thông tin thuốc đã được cập nhật thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DanhSachThuoc_Load(sender, e);
                     }
                     else
                     {
                         MessageBox.Show("Không thể cập nhật thông tin thuốc.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
-                    MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    foreach (SqlError er in ex.Errors)
+                    {
+                        MessageBox.Show("Lỗi :" + er.Message);
+                    }
                 }
-                connection.Close();
-                DanhSachThuoc_Load(sender, e); 
             }
         }
 
@@ -365,28 +353,24 @@ namespace QuanLyHieuThuoc.NhanVien
                 {
                     try
                     {
-                        connection.Open();
-                        string deleteQuery = "DELETE FROM tblSanPham WHERE sMaSP = @sMaSP";
-                        SqlCommand deleteCommand = new SqlCommand(deleteQuery, connection);
-                        deleteCommand.Parameters.AddWithValue("@sMaSP", selectedMaSP);
 
-                        int rowsAffected = deleteCommand.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
+                        if (sp.deleteSanPham(selectedMaSP) > 0)
                         {
                             MessageBox.Show("Thuốc đã được xóa thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            DanhSachThuoc_Load(null, null);
                         }
                         else
                         {
                             MessageBox.Show("Không thể xóa thuốc.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                    catch (Exception ex)
+                    catch (SqlException ex)
                     {
-                        MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        foreach (SqlError er in ex.Errors)
+                        {
+                            MessageBox.Show("Lỗi :" + er.Message);
+                        }
                     }
-                    connection.Close();
-                    DanhSachThuoc_Load(null, null);
                 }
             }
             else
@@ -397,73 +381,42 @@ namespace QuanLyHieuThuoc.NhanVien
 
         private void btnLoc_Click(object sender, EventArgs e)
         {
+            string maSP = txtMaThuoc.Text;
+            string tenSP = txtTenThuoc.Text;
+            string giaBan = txtGiaBan.Text;
+            string hangSX = txtHangSanXuat.Text;
+            string nuocSX = txtNuocSanXuat.Text;
+            string thongTin = txtThongTin.Text;
+            string cachDung = txtCachDung.Text;
+
             try { 
-                connection.Open();
-
-                string filterQuery = "SELECT sMaSP , sTenSP, sTenLoaiSP, fGiaBan, sHangSX, sNuocSX, sThongTinSP, sCachDung " +
-                                     "FROM tblSanPham inner join tblLoaiSanPham on tblSanPham.sMaLoaiSP = tblLoaiSanPham.sMaLoaiSP " +
-                                     "WHERE 1 = 1 ";
-                if (!string.IsNullOrEmpty(txtTenThuoc.Text))
-                    filterQuery += " AND sTenSP LIKE @filterTenThuoc";
-                if (!string.IsNullOrEmpty(txtMaThuoc.Text))
-                    filterQuery += " AND sMaSP LIKE @filterMaThuoc";
-                if (!string.IsNullOrEmpty(txtThongTin.Text))
-                    filterQuery += " AND sThongTinSP LIKE @filterThongTin";
-                if (!string.IsNullOrEmpty(txtNuocSanXuat.Text))
-                    filterQuery += " AND sNuocSX LIKE @filterNuocSanXuat";
-                if (!string.IsNullOrEmpty(txtHangSanXuat.Text))
-                    filterQuery += " AND sHangSX LIKE @filterHangSanXuat";
-                if (!string.IsNullOrEmpty(txtGiaBan.Text))
-                    filterQuery += " AND fGiaBan = @filterGiaBan";
-                if (!string.IsNullOrEmpty(txtCachDung.Text))
-                    filterQuery += " AND sCachDung LIKE @filterCachDung";
-
-                SqlCommand filterCommand = new SqlCommand(filterQuery, connection);
-
-                if (!string.IsNullOrEmpty(txtTenThuoc.Text))
-                    filterCommand.Parameters.AddWithValue("@filterTenThuoc", "%" + txtTenThuoc.Text + "%");
-                if (!string.IsNullOrEmpty(txtMaThuoc.Text))
-                    filterCommand.Parameters.AddWithValue("@filterMaThuoc", "%" + txtMaThuoc.Text + "%");
-                if (!string.IsNullOrEmpty(txtThongTin.Text))
-                    filterCommand.Parameters.AddWithValue("@filterThongTin", "%" + txtThongTin.Text + "%");
-                if (!string.IsNullOrEmpty(txtNuocSanXuat.Text))
-                    filterCommand.Parameters.AddWithValue("@filterNuocSanXuat", "%" + txtNuocSanXuat.Text + "%");
-                if (!string.IsNullOrEmpty(txtHangSanXuat.Text))
-                    filterCommand.Parameters.AddWithValue("@filterHangSanXuat", "%" + txtHangSanXuat.Text + "%");
-                if (!string.IsNullOrEmpty(txtGiaBan.Text))
-                    filterCommand.Parameters.AddWithValue("@filterGiaBan", decimal.Parse(txtGiaBan.Text));
-                if (!string.IsNullOrEmpty(txtCachDung.Text))
-                    filterCommand.Parameters.AddWithValue("@filterCachDung", "%" + txtCachDung.Text + "%");
-
-                SqlDataAdapter adapter = new SqlDataAdapter(filterCommand);
-                DataTable filteredTable = new DataTable();
-                adapter.Fill(filteredTable);
-
-                viewThuoc.DataSource = filteredTable;
+                viewThuoc.DataSource = sp.filterSanPham(maSP, tenSP, giaBan, hangSX, nuocSX, thongTin, cachDung);
                 viewThuoc.ClearSelection();
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                foreach (SqlError er in ex.Errors)
+                {
+                    MessageBox.Show("Lỗi :" + er.Message);
+                }
             }
-            connection.Close();
             btnThem.Enabled = false;
             btnLoc.Enabled  = true;
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            connection.Open();
-            SqlCommand command = new SqlCommand("SearchSanPham", connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@kyTu", txtSearch.Text);
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            connection.Close();
-
-            DataTable table = new DataTable();
-            adapter.Fill(table);
-
-            viewThuoc.DataSource = table;
+            try
+            {
+                viewThuoc.DataSource = sp.searchSanPham(txtSearch.Text);
+            }
+            catch (SqlException ex)
+            {
+                foreach (SqlError er in ex.Errors)
+                {
+                    MessageBox.Show("Lỗi :" + er.Message);
+                }
+            }
         }
     }
 }

@@ -21,6 +21,8 @@ namespace QuanLyHieuThuoc.NhanVien
         private string username;
         private User currentUser;
         string maNV;
+
+        BusinessLogicLayer.LoHangBLL lh = new BusinessLogicLayer.LoHangBLL();
         public DanhSachLoHang(User user)
         {
             InitializeComponent();
@@ -56,14 +58,18 @@ namespace QuanLyHieuThuoc.NhanVien
         }
 
         private void DanhSachLoHang_Load(object sender, EventArgs e)
-        {
-            SqlCommand cmd1 = new SqlCommand("SELECT * from tblLoHang", connection);
-            cmd1.CommandType = CommandType.Text;
-            SqlDataAdapter adapter1 = new SqlDataAdapter(cmd1);
-            connection.Close();
-            DataTable tbl_LoHang = new DataTable();
-            adapter1.Fill(tbl_LoHang);
-            viewLoHang.DataSource = tbl_LoHang;
+        {           
+            try
+            {
+                viewLoHang.DataSource = lh.getLoHang();
+            }
+            catch (SqlException ex)
+            {
+                foreach (SqlError er in ex.Errors)
+                {
+                    MessageBox.Show("Lỗi :" + er.Message);
+                }
+            }
 
             foreach (DataGridViewColumn col in viewLoHang.Columns)
             {
@@ -113,19 +119,17 @@ namespace QuanLyHieuThuoc.NhanVien
                 txtNgaySX.Value = (DateTime)selectedRow.Cells["dNgaySanXuat"].Value;
                 txtHanSD.Value = (DateTime)selectedRow.Cells["dNgayHetHan"].Value;
 
-                connection.Open();
-                SqlCommand cmd1 = new SqlCommand("SELECT tblSanPham.sMaSP,sTenSP, fGiaBan, sHangSX, sNuocSX, sThongTinSP, sCachDung " +
-                    " from tblSanPham inner join tblLoSanPham on tblSanPham.sMaSP = tblLoSanPham.sMaSP" +
-                    " where sMaLo = @maLo", connection);
-                cmd1.CommandType = CommandType.Text;
-                cmd1.Parameters.AddWithValue("@maLo", txtMaLo.Text);
-
-                SqlDataAdapter adapter1 = new SqlDataAdapter(cmd1);
-                connection.Close();
-
-                DataTable tbl_Thuoc = new DataTable();
-                adapter1.Fill(tbl_Thuoc);
-                viewThuoc.DataSource = tbl_Thuoc;
+                try
+                {
+                    viewThuoc.DataSource = lh.getSanPhamByLoHang(txtMaLo.Text);
+                }
+                catch (SqlException ex)
+                {
+                    foreach (SqlError er in ex.Errors)
+                    {
+                        MessageBox.Show("Lỗi :" + er.Message);
+                    }
+                }
 
                 foreach (DataGridViewColumn col in viewThuoc.Columns)
                 {
@@ -174,13 +178,7 @@ namespace QuanLyHieuThuoc.NhanVien
             DateTime ngaySanXuat = txtNgaySX.Value;
             DateTime hanSuDung = txtHanSD.Value;
 
-            connection.Open();
-            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM tblLoHang WHERE sMaLo = @maLo", connection);
-            cmd.Parameters.AddWithValue("@maLo", maLo);
-            int count = (int)cmd.ExecuteScalar();
-            connection.Close();
-
-            if (count > 0)
+            if (lh.checkMaLo(maLo) > 0)
             {
                 MessageBox.Show("Mã này đã tồn tại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -194,33 +192,27 @@ namespace QuanLyHieuThuoc.NhanVien
 
             try
             {
-                connection.Open();
-                SqlCommand cmd1 = new SqlCommand("INSERT INTO tblLoHang (sMaLo, dNgaySanXuat, dNgayHetHan) VALUES (@maLo, @ngaySanXuat, @hanSuDung)", connection);
-                cmd1.Parameters.AddWithValue("@maLo", maLo);
-                cmd1.Parameters.AddWithValue("@ngaySanXuat", ngaySanXuat);
-                cmd1.Parameters.AddWithValue("@hanSuDung", hanSuDung);
-                int rowsAffected = cmd1.ExecuteNonQuery();
-
-                if (rowsAffected > 0)
+                if (lh.insertLoHang(maLo, ngaySanXuat, hanSuDung) > 0)
                 {
                     MessageBox.Show("Thêm lô hàng thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DanhSachLoHang_Load(null, null);
                 }
                 else
                 {
                     MessageBox.Show("Không thể thêm lô hàng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                foreach (SqlError er in ex.Errors)
+                {
+                    MessageBox.Show("Lỗi :" + er.Message);
+                }
             }
-            connection.Close();
 
             txtMaLo.Clear();
             txtNgaySX.Value = DateTime.Now; 
             txtHanSD.Value = DateTime.Now;  
-
-            DanhSachLoHang_Load(null, null);
         }
 
         private void btnSua_Click(object sender, EventArgs e)
@@ -237,32 +229,23 @@ namespace QuanLyHieuThuoc.NhanVien
 
             try
             {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand("UPDATE tblLoHang SET dNgaySanXuat = @ngaySanXuatMoi, dNgayHetHan = @hanSuDungMoi WHERE sMaLo = @maLo", connection);
-                cmd.Parameters.AddWithValue("@maLo", maLo);
-                cmd.Parameters.AddWithValue("@ngaySanXuatMoi", ngaySanXuatMoi);
-                cmd.Parameters.AddWithValue("@hanSuDungMoi", hanSuDungMoi);
-                int rowsAffected = cmd.ExecuteNonQuery();
-
-                if (rowsAffected > 0)
+                if (lh.updateLoHang(maLo,ngaySanXuatMoi, hanSuDungMoi) > 0)
                 {
                     MessageBox.Show("Cập nhật thông tin lô hàng thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DanhSachLoHang_Load(null, null);
                 }
                 else
                 {
                     MessageBox.Show("Không thể cập nhật thông tin lô hàng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                foreach (SqlError er in ex.Errors)
+                {
+                    MessageBox.Show("Lỗi :" + er.Message);
+                }
             }
-            finally
-            {
-                connection.Close();
-            }
-
-            DanhSachLoHang_Load(null, null);
             txtNgaySX.Value = DateTime.Now;
             txtHanSD.Value = DateTime.Now;
             
@@ -284,30 +267,24 @@ namespace QuanLyHieuThuoc.NhanVien
 
                 try
                 {
-                    connection.Open();
-                    SqlCommand cmd = new SqlCommand("DELETE FROM tblLoHang WHERE sMaLo = @maLo", connection);
-                    cmd.Parameters.AddWithValue("@maLo", maLo);
-                    int rowsAffected = cmd.ExecuteNonQuery();
-
-                    if (rowsAffected > 0)
+                    if (lh.deleteLoHang(maLo) > 0)
                     {
                         MessageBox.Show("Xóa lô hàng thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DanhSachLoHang_Load(null, null);
                     }
                     else
                     {
                         MessageBox.Show("Không thể xóa lô hàng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
-                    MessageBox.Show("Mã Lô Này Đang Còn Thuốc", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    connection.Close();
+                    foreach (SqlError er in ex.Errors)
+                    {
+                        MessageBox.Show("Lỗi :" + er.Message);
+                    }
                 }
 
-                DanhSachLoHang_Load(null, null);
                 txtNgaySX.Value = DateTime.Now;
                 txtHanSD.Value = DateTime.Now;
                 
