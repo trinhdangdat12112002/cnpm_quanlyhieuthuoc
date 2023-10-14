@@ -21,6 +21,8 @@ namespace QuanLyHieuThuoc.NhanVien
         private User currentUser;
         string maNV;
 
+        BusinessLogicLayer.LoaiSanPhamBLL lsp = new BusinessLogicLayer.LoaiSanPhamBLL();
+
         public DanhSachLoaiThuoc(User user)
         {
             InitializeComponent();
@@ -53,49 +55,52 @@ namespace QuanLyHieuThuoc.NhanVien
         private void DanhSachLoaiThuoc_Load(object sender, EventArgs e)
         {
             // Lay danh sach thuoc
-            connection.Open();
-            SqlCommand cmd1 = new SqlCommand("SELECT sMaLoaiSP , sTenLoaiSP from tblLoaiSanPham", connection);
-            cmd1.CommandType = CommandType.Text;
-            SqlDataAdapter adapter1 = new SqlDataAdapter(cmd1);
-            connection.Close();
-            DataTable tbl_LoaiThuoc = new DataTable();
-            adapter1.Fill(tbl_LoaiThuoc);
-            viewLoaiThuoc.DataSource = tbl_LoaiThuoc;
-
-            foreach (DataGridViewColumn col in viewLoaiThuoc.Columns)
+            try
             {
-                switch (col.Name)
+                viewLoaiThuoc.DataSource = lsp.getLoaiSP();
+
+                foreach (DataGridViewColumn col in viewLoaiThuoc.Columns)
                 {
-                    case "sMaLoaiSP":
-                        col.HeaderText = "Mã Loại Thuốc";
-                        col.Width = 150;
-                        break;
-                    case "sTenLoaiSP":
-                        col.HeaderText = "Tên Loại Thuốc";
-                        col.Width = 150;
-                        break;
-                    default:
-                        col.HeaderText = col.Name;
-                        break;
+                    switch (col.Name)
+                    {
+                        case "sMaLoaiSP":
+                            col.HeaderText = "Mã Loại Thuốc";
+                            col.Width = 150;
+                            break;
+                        case "sTenLoaiSP":
+                            col.HeaderText = "Tên Loại Thuốc";
+                            col.Width = 150;
+                            break;
+                        default:
+                            col.HeaderText = col.Name;
+                            break;
+                    }
                 }
             }
-
+            catch (SqlException ex)
+            {
+                foreach (SqlError er in ex.Errors)
+                {
+                    MessageBox.Show("Lỗi :" + er.Message);
+                }
+            }
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            connection.Open();
-            SqlCommand command = new SqlCommand("SELECT * from tblLoaiSanPham " +
-                "where sMaLoaiSP like '%' + @kyTu + '%' or sTenLoaiSP like '%' + @kyTu + '%'", connection);
-            command.CommandType = CommandType.Text;
-            command.Parameters.AddWithValue("@kyTu", txtSearch.Text);
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            connection.Close();
+            string search = txtSearch.Text;
 
-            DataTable table = new DataTable();
-            adapter.Fill(table);
-
-            viewLoaiThuoc.DataSource = table;
+            try
+            {
+                viewLoaiThuoc.DataSource = lsp.searchLoaiSP(search);
+            }
+            catch (SqlException ex)
+            {
+                foreach (SqlError er in ex.Errors)
+                {
+                    MessageBox.Show("Lỗi :" + er.Message);
+                }
+            }
         }
 
         private void viewLoaiThuoc_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -125,51 +130,49 @@ namespace QuanLyHieuThuoc.NhanVien
                 txtMaLoaiThuoc.Text = maloai;
                 txtTenLoaiThuoc.Text = selectedRow.Cells["sTenLoaiSP"].Value.ToString();
 
-                connection.Open();
-                SqlCommand cmd1 = new SqlCommand("SELECT sMaSP,sTenSP, fGiaBan, sHangSX, sNuocSX, sThongTinSP, sCachDung " +
-                    " from tblSanPham " +
-                    " where sMaLoaiSP = @maLoaiSP", connection);
-                cmd1.CommandType = CommandType.Text;
-
-                cmd1.Parameters.AddWithValue("@maLoaiSP", maloai);
-
-                SqlDataAdapter adapter1 = new SqlDataAdapter(cmd1);
-                connection.Close();
-
-                DataTable tbl_Thuoc = new DataTable();
-                adapter1.Fill(tbl_Thuoc);
-                viewThuoc.DataSource = tbl_Thuoc;
-
-                foreach (DataGridViewColumn col in viewThuoc.Columns)
+                
+                try
                 {
-                    switch (col.Name)
+                    viewThuoc.DataSource = lsp.getSanPhamByLoai(maloai);
+
+                    foreach (DataGridViewColumn col in viewThuoc.Columns)
                     {
-                        case "sMaSP":
-                            col.HeaderText = "Mã Thuốc";
-                            col.Width = 50;
-                            break;
-                        case "sTenSP":
-                            col.HeaderText = "Tên Thuốc";
-                            col.Width = 100;
-                            break;
-                        case "fGiaBan":
-                            col.HeaderText = "Giá bán";
-                            break;
-                        case "sHangSX":
-                            col.HeaderText = "Hãng sản xuất";
-                            break;
-                        case "sNuocSX":
-                            col.HeaderText = "Nước sản xuất";
-                            break;
-                        case "sThongTinSP":
-                            col.HeaderText = "Thông tin sản phẩm";
-                            break;
-                        case "sCachDung":
-                            col.HeaderText = "Cách dùng";
-                            break;
-                        default:
-                            col.HeaderText = col.Name;
-                            break;
+                        switch (col.Name)
+                        {
+                            case "sMaSP":
+                                col.HeaderText = "Mã Thuốc";
+                                col.Width = 50;
+                                break;
+                            case "sTenSP":
+                                col.HeaderText = "Tên Thuốc";
+                                col.Width = 100;
+                                break;
+                            case "fGiaBan":
+                                col.HeaderText = "Giá bán";
+                                break;
+                            case "sHangSX":
+                                col.HeaderText = "Hãng sản xuất";
+                                break;
+                            case "sNuocSX":
+                                col.HeaderText = "Nước sản xuất";
+                                break;
+                            case "sThongTinSP":
+                                col.HeaderText = "Thông tin sản phẩm";
+                                break;
+                            case "sCachDung":
+                                col.HeaderText = "Cách dùng";
+                                break;
+                            default:
+                                col.HeaderText = col.Name;
+                                break;
+                        }
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    foreach (SqlError er in ex.Errors)
+                    {
+                        MessageBox.Show("Lỗi :" + er.Message);
                     }
                 }
                 viewThuoc.ClearSelection();
@@ -191,30 +194,25 @@ namespace QuanLyHieuThuoc.NhanVien
 
             try
             {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO tblLoaiSanPham (sMaLoaiSP , sTenLoaiSP) VALUES (@maloaiSP, @tenLoaiThuoc)", connection);
-                cmd.Parameters.AddWithValue("@tenLoaiThuoc", txtTenLoaiThuoc.Text);
-                cmd.Parameters.AddWithValue("@maloaiSP", txtMaLoaiThuoc.Text);
-                int rowsAffected = cmd.ExecuteNonQuery();
-
-                if (rowsAffected > 0)
+                if (lsp.insertLoaiSP(txtMaLoaiThuoc.Text, txtTenLoaiThuoc.Text) > 0)
                 {
                     MessageBox.Show("Thêm loại thuốc thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     txtTenLoaiThuoc.Clear();
                     txtMaLoaiThuoc.Clear();
+                    DanhSachLoaiThuoc_Load(null, null);
                 }
                 else
                 {
                     MessageBox.Show("Không thể thêm loại thuốc.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                foreach (SqlError er in ex.Errors)
+                {
+                    MessageBox.Show("Lỗi :" + er.Message);
+                }
             }
-            connection.Close();
-            DanhSachLoaiThuoc_Load(null, null);
-
         }
 
         private void btnSua_Click(object sender, EventArgs e)
@@ -227,30 +225,23 @@ namespace QuanLyHieuThuoc.NhanVien
 
                 try
                 {
-                    connection.Open();
-                    SqlCommand cmd = new SqlCommand("UPDATE tblLoaiSanPham " +
-                        "SET sTenLoaiSP = @tenLoaiThuoc " +
-                        "WHERE sMaLoaiSP = @maLoaiThuoc", connection);
-                    cmd.Parameters.AddWithValue("@tenLoaiThuoc", tenLoaiThuoc);
-                    cmd.Parameters.AddWithValue("@maLoaiThuoc", maLoaiThuoc);
-                    int rowsAffected = cmd.ExecuteNonQuery();
-
-                    if (rowsAffected > 0)
+                    if (lsp.updateLoaiSP(maLoaiThuoc,tenLoaiThuoc) > 0)
                     {
                         MessageBox.Show("Sửa loại thuốc thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DanhSachLoaiThuoc_Load(null, null);
                     }
                     else
                     {
                         MessageBox.Show("Không thể sửa loại thuốc.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
-                    MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    foreach (SqlError er in ex.Errors)
+                    {
+                        MessageBox.Show("Lỗi :" + er.Message);
+                    }
                 }
-                connection.Close();
-                DanhSachLoaiThuoc_Load(null, null);
-
             }
             else
             {
@@ -275,26 +266,23 @@ namespace QuanLyHieuThuoc.NhanVien
                 {
                     try
                     {
-                        connection.Open();
-                        SqlCommand cmd = new SqlCommand("DELETE FROM tblLoaiSanPham WHERE sMaLoaiSP = @maLoaiThuoc", connection);
-                        cmd.Parameters.AddWithValue("@maLoaiThuoc", maLoaiThuoc);
-                        int rowsAffected = cmd.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
+                        if (lsp.deleteLoaiSP(maLoaiThuoc) > 0)
                         {
                             MessageBox.Show("Xóa loại thuốc thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            DanhSachLoaiThuoc_Load(null, null);
                         }
                         else
                         {
                             MessageBox.Show("Không thể xóa loại thuốc.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                    catch (Exception ex)
+                    catch (SqlException ex)
                     {
-                        MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        foreach (SqlError er in ex.Errors)
+                        {
+                            MessageBox.Show("Lỗi :" + er.Message);
+                        }
                     }
-                    connection.Close();
-                    DanhSachLoaiThuoc_Load(null, null);
                 }
             }
             else
