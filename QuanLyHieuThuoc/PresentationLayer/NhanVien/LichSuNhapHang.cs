@@ -30,22 +30,16 @@ namespace QuanLyHieuThuoc.NhanVien
 
             try
             {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM tblTaiKhoan WHERE sTenTaiKhoanNV = @tenTaiKhoan", connection);
-                cmd.Parameters.AddWithValue("@tenTaiKhoan", username);
-                cmd.CommandType = CommandType.Text;
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read()) // Đọc dòng đầu tiên
+                BusinessLogicLayer.TaiKhoanBLL manv = new BusinessLogicLayer.TaiKhoanBLL();
+                maNV = manv.getMaNV(username);
+            }
+            catch (SqlException ex)
+            {
+                foreach (SqlError er in ex.Errors)
                 {
-                    maNV = reader["sMaNV"].ToString();
+                    MessageBox.Show("Lỗi :" + er.Message);
                 }
             }
-            catch (Exception ex)
-            {
-
-            }
-            connection.Close();
 
             txtTu.Format = DateTimePickerFormat.Custom;
             txtTu.CustomFormat = "dd/MM/yyyy";

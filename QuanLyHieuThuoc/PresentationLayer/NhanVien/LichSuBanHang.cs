@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using QuanLyHieuThuoc.PresentationLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -28,22 +30,16 @@ namespace QuanLyHieuThuoc.NhanVien
 
             try
             {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM tblTaiKhoan WHERE sTenTaiKhoanNV = @tenTaiKhoan", connection);
-                cmd.Parameters.AddWithValue("@tenTaiKhoan", username);
-                cmd.CommandType = CommandType.Text;
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read()) // Đọc dòng đầu tiên
+                BusinessLogicLayer.TaiKhoanBLL manv = new BusinessLogicLayer.TaiKhoanBLL();
+                maNV = manv.getMaNV(username);
+            }
+            catch (SqlException ex)
+            {
+                foreach (SqlError er in ex.Errors)
                 {
-                    maNV = reader["sMaNV"].ToString();
+                    MessageBox.Show("Lỗi :" + er.Message);
                 }
             }
-            catch (Exception ex)
-            {
-
-            }
-            connection.Close();
 
             txtTu.Format = DateTimePickerFormat.Custom;
             txtTu.CustomFormat = "dd/MM/yyyy";
@@ -86,6 +82,7 @@ namespace QuanLyHieuThuoc.NhanVien
                         break;
                 }
             }
+            viewChiTietLichSu.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void viewLichSu_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -180,6 +177,33 @@ namespace QuanLyHieuThuoc.NhanVien
 
                 viewLichSu.DataSource = table;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                connection.Open();
+
+                SqlCommand cmd1 = new SqlCommand("report_banhang", connection);
+                cmd1.CommandType = CommandType.StoredProcedure;
+                cmd1.Parameters.AddWithValue("@mabh", "17");
+                SqlDataAdapter adapter1 = new SqlDataAdapter(cmd1);
+                connection.Close();
+
+                DataTable rp1 = new DataTable();
+                adapter1.Fill(rp1 );
+
+                PresentationLayer.Report.banhang hdb = new PresentationLayer.Report.banhang();
+                hdb.SetDataSource (rp1);
+
+                FormRP form = new FormRP();
+                form.crystalReportViewer1.ReportSource = hdb;
+                form.ShowDialog();
+                
+
+            }
+            catch { throw; }
         }
     }
 }

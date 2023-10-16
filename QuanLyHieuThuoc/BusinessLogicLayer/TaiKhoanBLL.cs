@@ -39,5 +39,10 @@ namespace QuanLyHieuThuoc.BusinessLogicLayer
         {
             return tk.deleteTaiKhoan( maNV);
         }
+
+        public string getMaNV (string username)
+        {
+            return tk.getMaNV(username);
+        }
     }
 }

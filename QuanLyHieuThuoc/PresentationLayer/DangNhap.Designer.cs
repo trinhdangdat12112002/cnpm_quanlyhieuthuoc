@@ -74,7 +74,7 @@
             this.txtTenDangNhap.Name = "txtTenDangNhap";
             this.txtTenDangNhap.Size = new System.Drawing.Size(156, 22);
             this.txtTenDangNhap.TabIndex = 3;
-            this.txtTenDangNhap.Text = "error";
+            this.txtTenDangNhap.Text = "test";
             // 
             // txtMatKhau
             // 
@@ -82,7 +82,7 @@
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.Size = new System.Drawing.Size(156, 22);
             this.txtMatKhau.TabIndex = 4;
-            this.txtMatKhau.Text = "error";
+            this.txtMatKhau.Text = "test";
             // 
             // btnDangNhap
             // 

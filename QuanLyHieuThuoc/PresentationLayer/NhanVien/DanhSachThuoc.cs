@@ -32,24 +32,22 @@ namespace QuanLyHieuThuoc.NhanVien
 
             try
             {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM tblTaiKhoan WHERE sTenTaiKhoanNV = @tenTaiKhoan", connection);
-                cmd.Parameters.AddWithValue("@tenTaiKhoan", username);
-                cmd.CommandType = CommandType.Text;
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read()) // Đọc dòng đầu tiên
+                BusinessLogicLayer.TaiKhoanBLL manv = new BusinessLogicLayer.TaiKhoanBLL();
+                maNV = manv.getMaNV(username);
+            }
+            catch (SqlException ex)
+            {
+                foreach (SqlError er in ex.Errors)
                 {
-                    maNV = reader["sMaNV"].ToString();
-                    txtTest.Text = maNV.ToString();
+                    MessageBox.Show("Lỗi :" + er.Message);
                 }
             }
-            catch (Exception ex)
-            {
 
-            }
-            connection.Close();
+            // Tắt khả năng phóng to form (full screen)
+            this.MaximizeBox = false;
 
+            // Tắt khả năng thay đổi kích thước form bằng cách kéo góc hoặc cạnh
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         private void DanhSachThuoc_Load(object sender, EventArgs e)
@@ -122,6 +120,7 @@ namespace QuanLyHieuThuoc.NhanVien
                         break;
                 }
             }
+            viewThuoc.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void viewThuoc_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -402,6 +401,7 @@ namespace QuanLyHieuThuoc.NhanVien
             }
             btnThem.Enabled = false;
             btnLoc.Enabled  = true;
+            btnBoQua.Enabled = true;
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)

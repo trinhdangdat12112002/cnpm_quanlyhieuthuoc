@@ -93,7 +93,7 @@
             this.viewChiTietDat.ReadOnly = true;
             this.viewChiTietDat.RowHeadersWidth = 51;
             this.viewChiTietDat.RowTemplate.Height = 24;
-            this.viewChiTietDat.Size = new System.Drawing.Size(528, 512);
+            this.viewChiTietDat.Size = new System.Drawing.Size(815, 512);
             this.viewChiTietDat.TabIndex = 76;
             // 
             // sMaSP
@@ -393,7 +393,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1357, 772);
+            this.ClientSize = new System.Drawing.Size(1651, 772);
             this.Controls.Add(this.btnXoa);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.viewChiTietDat);

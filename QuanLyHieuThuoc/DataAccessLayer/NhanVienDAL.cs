@@ -29,7 +29,7 @@ namespace QuanLyHieuThuoc.DataAccessLayer
                 adapter1.Fill(tbl_NhanVien);
                 return tbl_NhanVien;
             }
-            catch (Exception ex) {
+            catch {
                 throw;
             }
         }
@@ -48,10 +48,9 @@ namespace QuanLyHieuThuoc.DataAccessLayer
                 DataTable tbl_NhanVien = new DataTable();
                 adapter.Fill(tbl_NhanVien);
                 connection.Close();
-                return tbl_NhanVien;
-                
+                return tbl_NhanVien;   
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }

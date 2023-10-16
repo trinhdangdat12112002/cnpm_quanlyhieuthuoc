@@ -32,22 +32,21 @@ namespace QuanLyHieuThuoc.QuanLy
 
             try
             {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM tblTaiKhoan WHERE sTenTaiKhoanNV = @tenTaiKhoan", connection);
-                cmd.Parameters.AddWithValue("@tenTaiKhoan", username);
-                cmd.CommandType = CommandType.Text;
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                BusinessLogicLayer.TaiKhoanBLL manv = new BusinessLogicLayer.TaiKhoanBLL();
+                maNV = manv.getMaNV(username);
+            }
+            catch (SqlException ex)
+            {
+                foreach (SqlError er in ex.Errors)
                 {
-                    maNV = reader["sMaNV"].ToString();
+                    MessageBox.Show("Lỗi :" + er.Message);
                 }
             }
-            catch (Exception ex)
-            {
+            // Tắt khả năng phóng to form (full screen)
+            this.MaximizeBox = false;
 
-            }
-            connection.Close();
+            // Tắt khả năng thay đổi kích thước form bằng cách kéo góc hoặc cạnh
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         private void DanhSachNhaCungCap_Load(object sender, EventArgs e)

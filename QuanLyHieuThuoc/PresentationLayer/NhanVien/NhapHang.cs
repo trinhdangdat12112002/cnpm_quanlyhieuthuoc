@@ -30,22 +30,21 @@ namespace QuanLyHieuThuoc.NhanVien
 
             try
             {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM tblTaiKhoan WHERE sTenTaiKhoanNV = @tenTaiKhoan", connection);
-                cmd.Parameters.AddWithValue("@tenTaiKhoan", username);
-                cmd.CommandType = CommandType.Text;
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read()) // Đọc dòng đầu tiên
+                BusinessLogicLayer.TaiKhoanBLL manv = new BusinessLogicLayer.TaiKhoanBLL();
+                maNV = manv.getMaNV(username);
+            }
+            catch (SqlException ex)
+            {
+                foreach (SqlError er in ex.Errors)
                 {
-                    maNV = reader["sMaNV"].ToString();
+                    MessageBox.Show("Lỗi :" + er.Message);
                 }
             }
-            catch (Exception ex)
-            {
+            // Tắt khả năng phóng to form (full screen)
+            this.MaximizeBox = false;
 
-            }
-            connection.Close();
+            // Tắt khả năng thay đổi kích thước form bằng cách kéo góc hoặc cạnh
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         private void txtThemThuoc_Click(object sender, EventArgs e)
@@ -64,8 +63,8 @@ namespace QuanLyHieuThuoc.NhanVien
             connection.Open();
             SqlCommand cmd1 = new SqlCommand("getAllSanPham", connection);
             cmd1.CommandType = CommandType.StoredProcedure;
-            SqlDataAdapter adapter1 = new SqlDataAdapter(cmd1);
             connection.Close();
+            SqlDataAdapter adapter1 = new SqlDataAdapter(cmd1);
 
             DataTable tbl_LoaiThuoc = new DataTable();
             adapter1.Fill(tbl_LoaiThuoc);
@@ -271,74 +270,81 @@ namespace QuanLyHieuThuoc.NhanVien
 
         private void btnHoanThanh_Click(object sender, EventArgs e)
         {
-            SqlCommand cmdInsertHoaDon = new SqlCommand("INSERT INTO tblHoaDonNhap (sMaNV, sMaNCC, sMaLo, dNgayNhap, sGhiChuNhap) VALUES (@maNV, @maNCC, @maLo, @ngayNhap, @ghiChu); SELECT SCOPE_IDENTITY();", connection);
-            cmdInsertHoaDon.Parameters.AddWithValue("@maNV", maNV);
-            cmdInsertHoaDon.Parameters.AddWithValue("@maNCC", ((KeyValuePair<string, string>)cbbNhaCungCap.SelectedItem).Key);
-            cmdInsertHoaDon.Parameters.AddWithValue("@maLo", cbLoHang.Text);
-            cmdInsertHoaDon.Parameters.AddWithValue("@ngayNhap", DateTime.Now);
-            cmdInsertHoaDon.Parameters.AddWithValue("@ghiChu", txtGhiChu.Text);
-
-            connection.Open();
-            int maHoaDon = Convert.ToInt32(cmdInsertHoaDon.ExecuteScalar());
-            connection.Close();
-
-            try
+            if (viewChiTiet.Rows.Count > 0)
             {
-                foreach (DataGridViewRow row in viewChiTiet.Rows)
+                SqlCommand cmdInsertHoaDon = new SqlCommand("INSERT INTO tblHoaDonNhap (sMaNV, sMaNCC, sMaLo, dNgayNhap, sGhiChuNhap) VALUES (@maNV, @maNCC, @maLo, @ngayNhap, @ghiChu); SELECT SCOPE_IDENTITY();", connection);
+                cmdInsertHoaDon.Parameters.AddWithValue("@maNV", maNV);
+                cmdInsertHoaDon.Parameters.AddWithValue("@maNCC", ((KeyValuePair<string, string>)cbbNhaCungCap.SelectedItem).Key);
+                cmdInsertHoaDon.Parameters.AddWithValue("@maLo", cbLoHang.Text);
+                cmdInsertHoaDon.Parameters.AddWithValue("@ngayNhap", DateTime.Now);
+                cmdInsertHoaDon.Parameters.AddWithValue("@ghiChu", txtGhiChu.Text);
+
+                connection.Open();
+                int maHoaDon = Convert.ToInt32(cmdInsertHoaDon.ExecuteScalar());
+                connection.Close();
+
+                try
                 {
-                    string maSP = row.Cells[0].Value.ToString();
-                    string maLo = cbLoHang.Text;
-                    int soLuongNhap = int.Parse(row.Cells[2].Value.ToString());
-                    float giaNhap = int.Parse(row.Cells[3].Value.ToString());
-
-                    // Tạo một đối tượng SqlCommand để thêm chi tiết hóa đơn vào cơ sở dữ liệu
-                    SqlCommand cmdInsertChiTietHoaDon = new SqlCommand("INSERT INTO tblChiTietNhap (iMaHoaDonNhap, sMaSP, iSoLuongNhap, fGiaNhap) VALUES (@maHD, @maSP, @soLuong, @giaNhap);", connection);
-                    cmdInsertChiTietHoaDon.Parameters.AddWithValue("@maHD", maHoaDon);
-                    cmdInsertChiTietHoaDon.Parameters.AddWithValue("@maSP", maSP);
-                    cmdInsertChiTietHoaDon.Parameters.AddWithValue("@soLuong", soLuongNhap);
-                    cmdInsertChiTietHoaDon.Parameters.AddWithValue("@giaNhap", giaNhap);
-                    connection.Open();
-                    cmdInsertChiTietHoaDon.ExecuteNonQuery();
-                    connection.Close();
-
-
-                    SqlCommand cmd3 = new SqlCommand("SELECT Count(*) from tblLoSanPham where sMaSP = @maSP and sMaLo = @maLo", connection);
-                    cmd3.Parameters.AddWithValue("@maSP", maSP);
-                    cmd3.Parameters.AddWithValue("@maLo", maLo);
-                    connection.Open();
-                    int count = (int)cmd3.ExecuteScalar();
-                    connection.Close();
-
-                    if (count > 0)
+                    foreach (DataGridViewRow row in viewChiTiet.Rows)
                     {
-                        SqlCommand cmd4 = new SqlCommand("UPDATE tblLoSanPham SET iSoLuongTrongLo += @soLuongNhap WHERE sMaSP = @maSP AND sMaLo = @maLo", connection);
-                        cmd4.Parameters.AddWithValue("@maSP", maSP);
-                        cmd4.Parameters.AddWithValue("@maLo", maLo);
-                        cmd4.Parameters.AddWithValue("@soLuongNhap", soLuongNhap);
+                        string maSP = row.Cells[0].Value.ToString();
+                        string maLo = cbLoHang.Text;
+                        int soLuongNhap = int.Parse(row.Cells[2].Value.ToString());
+                        float giaNhap = int.Parse(row.Cells[3].Value.ToString());
+
+                        // Tạo một đối tượng SqlCommand để thêm chi tiết hóa đơn vào cơ sở dữ liệu
+                        SqlCommand cmdInsertChiTietHoaDon = new SqlCommand("INSERT INTO tblChiTietNhap (iMaHoaDonNhap, sMaSP, iSoLuongNhap, fGiaNhap) VALUES (@maHD, @maSP, @soLuong, @giaNhap);", connection);
+                        cmdInsertChiTietHoaDon.Parameters.AddWithValue("@maHD", maHoaDon);
+                        cmdInsertChiTietHoaDon.Parameters.AddWithValue("@maSP", maSP);
+                        cmdInsertChiTietHoaDon.Parameters.AddWithValue("@soLuong", soLuongNhap);
+                        cmdInsertChiTietHoaDon.Parameters.AddWithValue("@giaNhap", giaNhap);
                         connection.Open();
-                        cmd4.ExecuteNonQuery();
+                        cmdInsertChiTietHoaDon.ExecuteNonQuery();
                         connection.Close();
-                    }
-                    else
-                    {
-                        SqlCommand cmd4 = new SqlCommand("INSERT INTO tblLoSanPham(sMaSP, sMaLo, iSoLuongTrongLo) VALUES (@maSP, @maLo, @soLuongNhap)", connection);
-                        cmd4.Parameters.AddWithValue("@maSP", maSP);
-                        cmd4.Parameters.AddWithValue("@maLo", maLo);
-                        cmd4.Parameters.AddWithValue("@soLuongNhap", soLuongNhap);
+
+
+                        SqlCommand cmd3 = new SqlCommand("SELECT Count(*) from tblLoSanPham where sMaSP = @maSP and sMaLo = @maLo", connection);
+                        cmd3.Parameters.AddWithValue("@maSP", maSP);
+                        cmd3.Parameters.AddWithValue("@maLo", maLo);
                         connection.Open();
-                        cmd4.ExecuteNonQuery();
+                        int count = (int)cmd3.ExecuteScalar();
                         connection.Close();
+
+                        if (count > 0)
+                        {
+                            SqlCommand cmd4 = new SqlCommand("UPDATE tblLoSanPham SET iSoLuongTrongLo += @soLuongNhap WHERE sMaSP = @maSP AND sMaLo = @maLo", connection);
+                            cmd4.Parameters.AddWithValue("@maSP", maSP);
+                            cmd4.Parameters.AddWithValue("@maLo", maLo);
+                            cmd4.Parameters.AddWithValue("@soLuongNhap", soLuongNhap);
+                            connection.Open();
+                            cmd4.ExecuteNonQuery();
+                            connection.Close();
+                        }
+                        else
+                        {
+                            SqlCommand cmd4 = new SqlCommand("INSERT INTO tblLoSanPham(sMaSP, sMaLo, iSoLuongTrongLo) VALUES (@maSP, @maLo, @soLuongNhap)", connection);
+                            cmd4.Parameters.AddWithValue("@maSP", maSP);
+                            cmd4.Parameters.AddWithValue("@maLo", maLo);
+                            cmd4.Parameters.AddWithValue("@soLuongNhap", soLuongNhap);
+                            connection.Open();
+                            cmd4.ExecuteNonQuery();
+                            connection.Close();
+                        }
+
                     }
-                                  
+
+                    MessageBox.Show("Thêm hóa đơn thành công!");
                 }
-
-                MessageBox.Show("Thêm hóa đơn thành công!");
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi thêm hóa đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                NhapHang_Load(null, null);
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Lỗi khi thêm hóa đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Chưa có sản phẩm trong giỏ hàng ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            NhapHang_Load(null, null);
         }
     }
 }

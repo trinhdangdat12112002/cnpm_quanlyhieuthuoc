@@ -98,13 +98,13 @@
             this.viewThuoc.AllowUserToAddRows = false;
             this.viewThuoc.AllowUserToDeleteRows = false;
             this.viewThuoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.viewThuoc.Location = new System.Drawing.Point(571, 101);
+            this.viewThuoc.Location = new System.Drawing.Point(555, 101);
             this.viewThuoc.Name = "viewThuoc";
             this.viewThuoc.ReadOnly = true;
             this.viewThuoc.RowHeadersWidth = 51;
             this.viewThuoc.RowTemplate.Height = 24;
             this.viewThuoc.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.viewThuoc.Size = new System.Drawing.Size(589, 480);
+            this.viewThuoc.Size = new System.Drawing.Size(991, 480);
             this.viewThuoc.TabIndex = 5;
             // 
             // btnThem
@@ -167,7 +167,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(815, 68);
+            this.label4.Location = new System.Drawing.Point(965, 65);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(137, 16);
             this.label4.TabIndex = 12;
@@ -177,7 +177,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1188, 607);
+            this.ClientSize = new System.Drawing.Size(1717, 653);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtSearch);

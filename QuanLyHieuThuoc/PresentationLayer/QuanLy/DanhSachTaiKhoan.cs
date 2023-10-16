@@ -31,22 +31,16 @@ namespace QuanLyHieuThuoc.QuanLy
 
             try
             {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM tblTaiKhoan WHERE sTenTaiKhoanNV = @tenTaiKhoan", connection);
-                cmd.Parameters.AddWithValue("@tenTaiKhoan", username);
-                cmd.CommandType = CommandType.Text;
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                BusinessLogicLayer.TaiKhoanBLL manv = new BusinessLogicLayer.TaiKhoanBLL();
+                maNV = manv.getMaNV(username);
+            }
+            catch (SqlException ex)
+            {
+                foreach (SqlError er in ex.Errors)
                 {
-                    maNV = reader["sMaNV"].ToString();
+                    MessageBox.Show("Lỗi :" + er.Message);
                 }
             }
-            catch 
-            {
-
-            }
-            connection.Close();
 
             List<KeyValuePair<string, string>> maTenNhanVienList = new List<KeyValuePair<string, string>>();
 
@@ -80,6 +74,12 @@ namespace QuanLyHieuThuoc.QuanLy
             cbbQuyen.DataSource = quyenHan;
             cbbQuyen.DisplayMember = "Value";
             cbbQuyen.ValueMember = "Key";
+
+            // Tắt khả năng phóng to form (full screen)
+            this.MaximizeBox = false;
+
+            // Tắt khả năng thay đổi kích thước form bằng cách kéo góc hoặc cạnh
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         private void DanhSachTaiKhoan_Load(object sender, EventArgs e)
@@ -120,6 +120,7 @@ namespace QuanLyHieuThuoc.QuanLy
                     MessageBox.Show("Lỗi :" + er.Message);
                 }
             }
+            viewTaiKhoan.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void viewTaiKhoan_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)

@@ -152,7 +152,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(794, 48);
+            this.label4.Location = new System.Drawing.Point(949, 45);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(137, 16);
             this.label4.TabIndex = 15;
@@ -169,14 +169,14 @@
             this.viewThuoc.RowHeadersWidth = 51;
             this.viewThuoc.RowTemplate.Height = 24;
             this.viewThuoc.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.viewThuoc.Size = new System.Drawing.Size(589, 480);
+            this.viewThuoc.Size = new System.Drawing.Size(983, 480);
             this.viewThuoc.TabIndex = 14;
             // 
             // DanhSachLoHang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1166, 613);
+            this.ClientSize = new System.Drawing.Size(1573, 613);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.viewThuoc);
             this.Controls.Add(this.btnBoQua);

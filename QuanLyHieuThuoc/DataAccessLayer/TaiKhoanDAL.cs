@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace QuanLyHieuThuoc.DataAccessLayer
 {
@@ -132,6 +133,29 @@ namespace QuanLyHieuThuoc.DataAccessLayer
                 if (rowsAffected > 0) { return 1; } else return 0;
             }
             catch { throw; }
+        }
+
+        public string getMaNV(string username)
+        {
+            string maNV;
+            try
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand("SELECT * FROM tblTaiKhoan WHERE sTenTaiKhoanNV = @tenTaiKhoan", connection);
+                cmd.Parameters.AddWithValue("@tenTaiKhoan", username);
+                cmd.CommandType = CommandType.Text;
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read()) // Đọc dòng đầu tiên
+                {
+                    maNV = reader["sMaNV"].ToString();
+                    return maNV;
+                }
+                return null;
+                
+            }
+            catch { throw; }
+            finally { connection.Close(); }
         }
     }
 }

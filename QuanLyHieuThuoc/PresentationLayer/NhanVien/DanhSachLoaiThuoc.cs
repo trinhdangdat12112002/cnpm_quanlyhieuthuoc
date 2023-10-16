@@ -32,22 +32,21 @@ namespace QuanLyHieuThuoc.NhanVien
 
             try
             {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM tblTaiKhoan WHERE sTenTaiKhoanNV = @tenTaiKhoan", connection);
-                cmd.Parameters.AddWithValue("@tenTaiKhoan", username);
-                cmd.CommandType = CommandType.Text;
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read()) // Đọc dòng đầu tiên
+                BusinessLogicLayer.TaiKhoanBLL manv = new BusinessLogicLayer.TaiKhoanBLL();
+                maNV = manv.getMaNV(username);
+            }
+            catch (SqlException ex)
+            {
+                foreach (SqlError er in ex.Errors)
                 {
-                    maNV = reader["sMaNV"].ToString();
+                    MessageBox.Show("Lỗi :" + er.Message);
                 }
             }
-            catch (Exception ex)
-            {
+            // Tắt khả năng phóng to form (full screen)
+            this.MaximizeBox = false;
 
-            }
-            connection.Close();
+            // Tắt khả năng thay đổi kích thước form bằng cách kéo góc hoặc cạnh
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
 
 
         }
@@ -84,6 +83,8 @@ namespace QuanLyHieuThuoc.NhanVien
                     MessageBox.Show("Lỗi :" + er.Message);
                 }
             }
+            viewLoaiThuoc.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            viewThuoc.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -141,11 +142,11 @@ namespace QuanLyHieuThuoc.NhanVien
                         {
                             case "sMaSP":
                                 col.HeaderText = "Mã Thuốc";
-                                col.Width = 50;
+                                
                                 break;
                             case "sTenSP":
                                 col.HeaderText = "Tên Thuốc";
-                                col.Width = 100;
+                                
                                 break;
                             case "fGiaBan":
                                 col.HeaderText = "Giá bán";

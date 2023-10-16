@@ -16,14 +16,14 @@ namespace QuanLyHieuThuoc.PresentationLayer.Report {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class HoaDonBanHang : ReportClass {
+    public class banhang : ReportClass {
         
-        public HoaDonBanHang() {
+        public banhang() {
         }
         
         public override string ResourceName {
             get {
-                return "HoaDonBanHang.rpt";
+                return "banhang.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace QuanLyHieuThuoc.PresentationLayer.Report {
         
         public override string FullResourceName {
             get {
-                return "QuanLyHieuThuoc.PresentationLayer.Report.HoaDonBanHang.rpt";
+                return "QuanLyHieuThuoc.PresentationLayer.Report.banhang.rpt";
             }
             set {
                 // Do nothing
@@ -87,12 +87,20 @@ namespace QuanLyHieuThuoc.PresentationLayer.Report {
                 return this.ReportDefinition.Sections[4];
             }
         }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_mabh {
+            get {
+                return this.DataDefinition.ParameterFields[0];
+            }
+        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedHoaDonBanHang : Component, ICachedReport {
+    public class Cachedbanhang : Component, ICachedReport {
         
-        public CachedHoaDonBanHang() {
+        public Cachedbanhang() {
         }
         
         [Browsable(false)]
@@ -129,7 +137,7 @@ namespace QuanLyHieuThuoc.PresentationLayer.Report {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            HoaDonBanHang rpt = new HoaDonBanHang();
+            banhang rpt = new banhang();
             rpt.Site = this.Site;
             return rpt;
         }

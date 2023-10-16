@@ -54,7 +54,6 @@
             this.btnLoc = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.txtMaThuoc = new System.Windows.Forms.TextBox();
-            this.txtTest = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.viewThuoc)).BeginInit();
             this.SuspendLayout();
             // 
@@ -278,21 +277,11 @@
             this.txtMaThuoc.Size = new System.Drawing.Size(238, 22);
             this.txtMaThuoc.TabIndex = 44;
             // 
-            // txtTest
-            // 
-            this.txtTest.AutoSize = true;
-            this.txtTest.Location = new System.Drawing.Point(411, 13);
-            this.txtTest.Name = "txtTest";
-            this.txtTest.Size = new System.Drawing.Size(51, 16);
-            this.txtTest.TabIndex = 45;
-            this.txtTest.Text = "label10";
-            // 
             // DanhSachThuoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1163, 671);
-            this.Controls.Add(this.txtTest);
             this.Controls.Add(this.txtMaThuoc);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnLoc);
@@ -353,6 +342,5 @@
         private System.Windows.Forms.Button btnLoc;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtMaThuoc;
-        private System.Windows.Forms.Label txtTest;
     }
 }

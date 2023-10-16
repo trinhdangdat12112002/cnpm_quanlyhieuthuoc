@@ -45,3 +45,5 @@ C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\bin\Debug\CrystalDec
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\bin\Debug\stdole.dll
 C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.csproj.CopyComplete
+C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\bin\Debug\CrystalDecisions.Windows.Forms.dll
+C:\Users\tdat5\source\repos\QuanLyHieuThuoc\QuanLyHieuThuoc\obj\Debug\QuanLyHieuThuoc.PresentationLayer.FormRP.resources
