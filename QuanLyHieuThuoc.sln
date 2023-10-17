@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLyHieuThuoc", "QuanLyHieuThuoc\QuanLyHieuThuoc.csproj", "{81AEE97B-6946-4F58-BBBD-6A0B31781A2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLyHieuThuocTests2", "QuanLyHieuThuocTests2\QuanLyHieuThuocTests2.csproj", "{A70F3A08-CCA6-4789-9AEF-5C0BDF888FC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{81AEE97B-6946-4F58-BBBD-6A0B31781A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81AEE97B-6946-4F58-BBBD-6A0B31781A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81AEE97B-6946-4F58-BBBD-6A0B31781A2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A70F3A08-CCA6-4789-9AEF-5C0BDF888FC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A70F3A08-CCA6-4789-9AEF-5C0BDF888FC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A70F3A08-CCA6-4789-9AEF-5C0BDF888FC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A70F3A08-CCA6-4789-9AEF-5C0BDF888FC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

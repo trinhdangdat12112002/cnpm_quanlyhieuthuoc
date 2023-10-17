@@ -17,17 +17,45 @@ namespace QuanLyHieuThuoc.BusinessLogicLayer
 
         public int check_NV_TK(string maNV)
         {
-            return tk.check_NV_TK(maNV);
+            if (maNV == null)
+            {
+                return -1;
+            }
+            else
+            {
+                return tk.check_NV_TK(maNV);
+            }
         }
-
         public int checkTaiKhoan (string tenDangNhap)
         {
-            return tk.checkTaiKhoan(tenDangNhap);
+            if (tenDangNhap == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return tk.checkTaiKhoan(tenDangNhap);
+            }
         }
 
         public int insertTaiKhoan (string tenTaiKhoan, string matKhau, string quyen, string maNV)
         {
-            return tk.insertTaiKhoan(tenTaiKhoan, matKhau, quyen, maNV);
+            if (tenTaiKhoan == null || matKhau ==null || quyen ==null || maNV ==null) { return -1; }
+            else
+            {
+                if (tk.check_NV_TK(maNV) > 0)
+                {
+                    return -1;
+                }
+                else if (tk.checkTaiKhoan(tenTaiKhoan)> 0)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return tk.insertTaiKhoan(tenTaiKhoan, matKhau, quyen, maNV);
+                }
+            }
         }
 
         public int updateTaiKhoan(string tenTaiKhoan, string matKhau, string quyen, string maNV)

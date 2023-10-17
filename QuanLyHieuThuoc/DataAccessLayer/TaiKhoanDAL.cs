@@ -33,7 +33,7 @@ namespace QuanLyHieuThuoc.DataAccessLayer
             }
             catch 
             {
-                throw ;
+                return new DataTable() ;
             }
         }
 
@@ -52,7 +52,7 @@ namespace QuanLyHieuThuoc.DataAccessLayer
                 adapter1.Fill(dt);
                 return dt;
             }
-            catch { throw; }
+            catch { return new DataTable(); }
         }
 
         public int check_NV_TK (string maNV) 
@@ -66,7 +66,7 @@ namespace QuanLyHieuThuoc.DataAccessLayer
                 int count = (int)cmd1.ExecuteScalar();
                 connection.Close(); return count;
             }
-            catch { throw; }
+            catch { return -1; }
         }
 
         public int checkTaiKhoan (string tenDangNhap)
@@ -81,7 +81,7 @@ namespace QuanLyHieuThuoc.DataAccessLayer
                 connection.Close();
                 if (count > 0) return 1; else return 0;
             }
-            catch { throw; }
+            catch { return -1; }
         }
 
         public int insertTaiKhoan (string tenTaiKhoan, string matKhau, string quyen, string maNV)
@@ -99,7 +99,7 @@ namespace QuanLyHieuThuoc.DataAccessLayer
                 connection.Close();
                 if (rowsAffected > 0) return 1; else return 0;
             }
-            catch { throw; };
+            catch { return -1; throw; };
         }
 
         public int updateTaiKhoan (string tenTaiKhoan, string matKhau, string quyen, string maNV)
@@ -117,7 +117,7 @@ namespace QuanLyHieuThuoc.DataAccessLayer
                 connection.Close();
                 if (rowsAffected > 0) { return 1; } else return 0;
             }
-            catch { throw; }
+            catch { return -1; }
         }
 
         public int deleteTaiKhoan (string maNV)

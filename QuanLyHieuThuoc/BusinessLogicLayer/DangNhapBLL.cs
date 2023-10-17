@@ -14,15 +14,19 @@ namespace QuanLyHieuThuoc.BusinessLogicLayer
         
         public int dangNhap(string username , string password)
         {
-            using (DataTable dt =  dalDangNhap.dangNhap(username, password))
+            if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) { return -1; }
+            else
             {
-                if (dt.Rows.Count > 0)
+                using (DataTable dt = dalDangNhap.dangNhap(username, password))
                 {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
+                    if (dt.Rows.Count > 0)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
                 }
             }
         }

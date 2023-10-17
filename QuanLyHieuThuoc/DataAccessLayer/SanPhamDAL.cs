@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace QuanLyHieuThuoc.DataAccessLayer
 {
-    internal class SanPhamDAL
+    public class SanPhamDAL
     {
         SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["HieuThuoc"].ConnectionString);
             
@@ -42,7 +42,7 @@ namespace QuanLyHieuThuoc.DataAccessLayer
                 int existingCount = (int)checkCommand.ExecuteScalar();
                 return existingCount;
             }
-            catch { throw; }
+            catch { return -1; throw; }
             finally { connection.Close(); }
         }
 
@@ -67,7 +67,7 @@ namespace QuanLyHieuThuoc.DataAccessLayer
                 int rowsAffected = insertCommand.ExecuteNonQuery();
                 return rowsAffected;
             }
-            catch { throw; }
+            catch { return -1;  throw; }
             finally { connection.Close(); }
         }
 
