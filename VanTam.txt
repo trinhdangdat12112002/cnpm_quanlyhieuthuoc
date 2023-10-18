@@ -1,0 +1,3 @@
+Nội dung rút ra sau buổi học 18-10-2023
+Cách sử dụng git-github-svn
+hoàn thành các bài tập đang thiếu
