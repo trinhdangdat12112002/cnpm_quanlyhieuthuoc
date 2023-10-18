@@ -1,2 +1,0 @@
-﻿- Tìm hiểu thêm về SVN và cách hoạt động của nó
-- Tìm hiểu thêm về Git Github và cách hoạt động, thực hiện trong dự án đối với mỗi thành viên
